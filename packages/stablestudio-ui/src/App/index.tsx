@@ -11,7 +11,7 @@ export function App() {
   const isMobileDevice = Theme.useIsMobileDevice();
   const [isShowTopBar, setIsShowTopBar] = useState(true);
   useEffect(() => {
-    const paths = ["/signup"];
+    const paths = ["/signin", "/signin-sms", "/signup", "/reset-password"];
     setIsShowTopBar(!paths.includes(window.location.pathname));
   }, []);
 

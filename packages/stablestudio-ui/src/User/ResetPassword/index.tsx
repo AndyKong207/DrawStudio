@@ -3,26 +3,17 @@ import { Theme } from "~/Theme";
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const handleEmail = (value: string) => {
     setEmail(value);
-  };
-
-  const handlePassword = (value: string) => {
-    setPassword(value);
-  };
-
-  const handleShowPassword = () => {
-    console.log("first");
   };
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-violet-950">
       <div className="h-[300px] w-[400px] rounded-lg p-6 shadow-lg dark:bg-zinc-800">
         <div className="mb-4 flex-col items-center justify-center text-center">
-          <div className="text-2xl">欢迎</div>
-          <div>注册DrawStudio</div>
+          <div className="text-2xl">忘记密码？</div>
+          <div>输入您的注册邮箱，我们会发送确认邮件来重置您的密码</div>
         </div>
         <form>
           <Theme.Input
@@ -33,26 +24,16 @@ const Login = () => {
             placeholder="邮箱"
             type="email"
           />
-          <Theme.Input
-            value={password}
-            onChange={handlePassword}
-            className="mb-6 h-12"
-            size="lg"
-            placeholder="密码"
-            type="password"
-            // iconRight={Theme.Icon.Eye}
-            onRightIconClick={handleShowPassword}
-          />
           <Theme.Button color="brand" fullWidth size="lg" className="mb-2">
-            登录
+            找回密码
           </Theme.Button>
         </form>
-        <p className="t text-gray-400">
-          已经有账号？
-          <Link className="text-brand-400 hover:underline" to="/signin">
-            去登录
-          </Link>
-        </p>
+        <Link
+          className="text-brand-400 mt-6 block text-center hover:underline"
+          to="/signin"
+        >
+          返回DrawStudio
+        </Link>
       </div>
     </div>
   );

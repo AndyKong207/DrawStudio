@@ -3,18 +3,14 @@ import { Theme } from "~/Theme";
 
 const Login = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [code, setCode] = useState("");
 
   const handleEmail = (value: string) => {
     setEmail(value);
   };
 
   const handlePassword = (value: string) => {
-    setPassword(value);
-  };
-
-  const handleShowPassword = () => {
-    console.log("first");
+    setCode(value);
   };
 
   return (
@@ -25,27 +21,27 @@ const Login = () => {
           <div>登录DrawStudio</div>
         </div>
         <form>
+          <div className="flex space-x-2">
+            <Theme.Input
+              value={email}
+              onChange={handleEmail}
+              className="mb-4 h-12"
+              size="lg"
+              placeholder="手机号"
+              type="text"
+            />
+            <Theme.Button color="brand" className="h-12">
+              发送验证码
+            </Theme.Button>
+          </div>
           <Theme.Input
-            value={email}
-            onChange={handleEmail}
-            className="mb-4 h-12"
-            size="lg"
-            placeholder="邮箱"
-            type="email"
-          />
-          <Theme.Input
-            value={password}
+            value={code}
             onChange={handlePassword}
             className="mb-4 h-12"
             size="lg"
-            placeholder="密码"
-            type="password"
-            // iconRight={Theme.Icon.Eye}
-            onRightIconClick={handleShowPassword}
+            placeholder="验证码"
+            type="text"
           />
-          <Link className="text-brand-400 hover:underline" to="/reset-password">
-            忘记密码？
-          </Link>
           <Theme.Button color="brand" fullWidth size="lg" className="mb-2 mt-4">
             登录
           </Theme.Button>
@@ -57,8 +53,8 @@ const Login = () => {
               去注册
             </Link>
           </p>
-          <Link className="text-brand-400 hover:underline" to="/signin-sms">
-            短信验证码登录
+          <Link className="text-brand-400 hover:underline" to="/signin">
+            账号密码登录
           </Link>
         </div>
       </div>

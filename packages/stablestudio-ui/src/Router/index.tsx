@@ -5,6 +5,8 @@ import { Generation } from "~/Generation";
 import { Plugin } from "~/Plugin";
 import { Settings } from "~/Settings";
 import Login from "~/User/Login";
+import ResetPassword from "~/User/ResetPassword";
+import SignInPhone from "~/User/SignInPhone";
 import SignUp from "~/User/SignUp";
 
 export function Router() {
@@ -41,8 +43,16 @@ export namespace Router {
               element: <Login />,
             },
             {
+              path: "/signin-sms",
+              element: <SignInPhone />,
+            },
+            {
               path: "/signup",
               element: <SignUp />,
+            },
+            {
+              path: "/reset-password",
+              element: <ResetPassword />,
             },
             {
               path: "/generate",
