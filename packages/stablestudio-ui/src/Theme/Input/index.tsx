@@ -27,6 +27,8 @@ export type Input = Styleable & {
     HTMLTextAreaElement | HTMLInputElement
   >;
 
+  onRightIconClick?: () => void;
+
   autoFocus?: boolean;
   placeholder?: string;
   disabled?: boolean;
@@ -130,7 +132,7 @@ function SingleInput({
 
   value,
   onChange,
-
+  onRightIconClick,
   ...props
 }: Input) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -209,7 +211,10 @@ function SingleInput({
         type={props.type || "text"}
       />
       {icons.right && (
-        <div className="pointer-events-none absolute bottom-0 right-0 top-0 flex items-center justify-center pr-3">
+        <div
+          className="pointer-events-none absolute bottom-0 right-0 top-0 z-50 flex cursor-pointer items-center justify-center pr-3"
+          onClick={onRightIconClick}
+        >
           {icons.right}
         </div>
       )}

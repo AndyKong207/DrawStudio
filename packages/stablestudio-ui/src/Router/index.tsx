@@ -4,6 +4,8 @@ import { Editor } from "~/Editor";
 import { Generation } from "~/Generation";
 import { Plugin } from "~/Plugin";
 import { Settings } from "~/Settings";
+import Login from "~/User/Login";
+import SignUp from "~/User/SignUp";
 
 export function Router() {
   const navigate = Router.useNavigate();
@@ -34,6 +36,14 @@ export namespace Router {
       return useMemo(
         () =>
           [
+            {
+              path: "/signin",
+              element: <Login />,
+            },
+            {
+              path: "/signup",
+              element: <SignUp />,
+            },
             {
               path: "/generate",
               element: <Generation />,

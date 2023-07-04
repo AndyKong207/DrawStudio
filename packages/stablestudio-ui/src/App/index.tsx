@@ -9,13 +9,19 @@ import { TopBar } from "./TopBar";
 
 export function App() {
   const isMobileDevice = Theme.useIsMobileDevice();
+  const [isShowTopBar, setIsShowTopBar] = useState(true);
+  useEffect(() => {
+    const paths = ["/signup"];
+    setIsShowTopBar(!paths.includes(window.location.pathname));
+  }, []);
+
   return useMemo(
     () => (
       <Providers>
-        <div className="absolute top-0 left-0 -z-50 h-screen w-screen dark:bg-zinc-800" />
-        <div className="absolute top-0 left-0 flex h-screen w-screen flex-col text-white sm:overflow-x-auto">
+        <div className="absolute left-0 top-0 -z-50 h-screen w-screen dark:bg-zinc-800" />
+        <div className="absolute left-0 top-0 flex h-screen w-screen flex-col text-white sm:overflow-x-auto">
           <Shortcut.Palette />
-          <TopBar />
+          {isShowTopBar && <TopBar />}
           <Sidebars />
           <div className="flex min-h-0 grow overflow-auto sm:min-w-[1000px]">
             <Sidebar position="left" />
@@ -28,7 +34,7 @@ export function App() {
         </div>
       </Providers>
     ),
-    [isMobileDevice]
+    [isMobileDevice, isShowTopBar]
   );
 }
 
