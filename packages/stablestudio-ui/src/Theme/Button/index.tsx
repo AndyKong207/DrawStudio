@@ -213,7 +213,7 @@ export namespace Button {
           right && !fullWidth ? (
             right
           ) : (
-            <div className="absolute right-2 top-0 bottom-0 flex items-center justify-center">
+            <div className="absolute bottom-0 right-2 top-0 flex items-center justify-center">
               {right}
             </div>
           ),

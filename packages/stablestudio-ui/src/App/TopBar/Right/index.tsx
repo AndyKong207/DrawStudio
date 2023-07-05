@@ -5,6 +5,7 @@ import { Theme } from "~/Theme";
 export const Right = () => {
   const { setIsOpen } = Shortcut.Palette.use();
   const isMobileDevice = Theme.useIsMobileDevice();
+  const apiKey = localStorage.getItem("stability-apiKey");
   return (
     <div className="flex grow basis-0 items-center justify-end gap-2">
       <>
@@ -22,6 +23,26 @@ export const Right = () => {
             <Shortcut.Keys keys={["Meta", "k"]} className="ml-2" />
           </Theme.Button>
         )}
+        {apiKey ? (
+          <Link to="/account">
+            <div className="flex aspect-square h-full items-center justify-center rounded-full bg-gray-400 text-xl">
+              <svg
+                className="h-[24px] w-[24px]"
+                focusable="false"
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                data-testid="PersonIcon"
+              >
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+              </svg>
+            </div>
+          </Link>
+        ) : (
+          <Link to="/signin">
+            <Theme.Button color="brand">登录</Theme.Button>
+          </Link>
+        )}
+
         <Link to="/settings">
           <Theme.Button
             outline

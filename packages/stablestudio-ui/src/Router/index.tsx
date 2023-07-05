@@ -4,6 +4,7 @@ import { Editor } from "~/Editor";
 import { Generation } from "~/Generation";
 import { Plugin } from "~/Plugin";
 import { Settings } from "~/Settings";
+import Account from "~/User/Account";
 import Login from "~/User/Login";
 import ResetPassword from "~/User/ResetPassword";
 import SignInPhone from "~/User/SignInPhone";
@@ -53,6 +54,10 @@ export namespace Router {
             {
               path: "/reset-password",
               element: <ResetPassword />,
+            },
+            {
+              path: "/account",
+              element: <Account />,
             },
             {
               path: "/generate",
