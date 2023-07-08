@@ -21,6 +21,12 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 3000,
       fs: { strict: false },
+      proxy: {
+        "/api": {
+          target: "https://124.222.198.28/",
+          changeOrigin: true,
+        },
+      },
     },
 
     optimizeDeps: {

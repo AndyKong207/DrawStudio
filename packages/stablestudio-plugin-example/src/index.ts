@@ -1,4 +1,5 @@
 import * as StableStudio from "@stability/stablestudio-plugin";
+import axios from "axios";
 
 export const createPlugin = StableStudio.createPlugin<{
   imagesGeneratedSoFar: number;
@@ -52,6 +53,12 @@ export const createPlugin = StableStudio.createPlugin<{
         },
       ],
     };
+  },
+
+  getStableDiffusionExistingImages: async () => {
+    const resp = await axios.post("/api/draw/list");
+    console.log(resp);
+    return {} as any;
   },
 
   getStatus: () => {
