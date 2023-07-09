@@ -66,7 +66,7 @@ export namespace Execute {
               inputID: input.id,
               created: image.createdAt,
               finishReason: 0,
-              src: image.blob ? URL.createObjectURL(image.blob) : undefined,
+              src: image.blob ? URL.createObjectURL(image.blob) : image.src,
             });
           }
 

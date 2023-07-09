@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Router } from "~/Router";
 import { Shortcut } from "~/Shortcut";
 import { Theme } from "~/Theme";
 
@@ -6,6 +7,12 @@ export const Right = () => {
   const { setIsOpen } = Shortcut.Palette.use();
   const isMobileDevice = Theme.useIsMobileDevice();
   const apiKey = localStorage.getItem("stability-apiKey");
+  const navigate = Router.useNavigate();
+
+  const handleLogin = () => {
+    navigate("/signin");
+  };
+
   return (
     <div className="flex grow basis-0 items-center justify-end gap-2">
       <>
@@ -39,7 +46,9 @@ export const Right = () => {
           </Link>
         ) : (
           <Link to="/signin">
-            <Theme.Button color="brand">登录</Theme.Button>
+            <Theme.Button color="brand" onClick={handleLogin}>
+              登录
+            </Theme.Button>
           </Link>
         )}
 

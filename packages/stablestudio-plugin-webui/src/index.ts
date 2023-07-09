@@ -94,7 +94,6 @@ export const createPlugin = StableStudio.createPlugin<{
     | "getStableDiffusionDefaultInput"
     | "getStableDiffusionExistingImages"
   > => {
-
     return {
       createStableDiffusionImages: async (options) => {
         if (!options) {

@@ -55,10 +55,54 @@ export const createPlugin = StableStudio.createPlugin<{
     };
   },
 
-  getStableDiffusionExistingImages: async () => {
+  getStableDiffusionExistingImages: async (options) => {
+    const { limit, exclusiveStartImageID } = { limit: 25, ...options };
     const resp = await axios.post("/api/draw/list");
     console.log(resp);
-    return {} as any;
+    let responseData = {} as any;
+    if (resp && resp.status === 200) {
+      responseData = resp.data[0];
+    }
+    const respImgs = responseData.imgs || [];
+    const images = [];
+
+    for (let i = 0; i < respImgs.length; i++) {
+      // const blob = await base64ToBlob(responseData[i].content, "image/jpeg");
+
+      // const timestampInSeconds = responseData.ctime;
+      // const timestampInMilliseconds = timestampInSeconds * 1000;
+      const createdAt = new Date(responseData.ctime);
+
+      const stableDiffusionImage = {
+        id: respImgs[i].small,
+        createdAt: createdAt,
+        // blob: blob,
+        src: `${respImgs[i].small}`,
+        input: {
+          prompts: [
+            {
+              text: respImgs[i]["prompt"],
+              // weight: imageInfo["CFG scale"],
+            },
+          ],
+          style: "",
+          steps: -1,
+          seed: -1,
+          model: "",
+          width: respImgs[i].small_dim.width,
+          height: respImgs[i].small_dim.height,
+        },
+      };
+
+      images.push(stableDiffusionImage);
+    }
+
+    return [
+      {
+        id: `${Math.random() * 10000000}`,
+        images: images,
+      },
+    ];
   },
 
   getStatus: () => {

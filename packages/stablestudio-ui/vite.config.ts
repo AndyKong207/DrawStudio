@@ -26,6 +26,10 @@ export default defineConfig(({ mode }) => {
           target: "https://124.222.198.28/",
           changeOrigin: true,
         },
+        "/aiart": {
+          target: "https://124.222.198.28/",
+          changeOrigin: true,
+        },
       },
     },
 

@@ -1,6 +1,8 @@
 import axios from "axios";
 import sha256 from "crypto-js/sha256";
 import { Link } from "react-router-dom";
+import { loginApi } from "~/api/modules/login";
+import { Router } from "~/Router";
 import { Theme } from "~/Theme";
 
 function hash(password: string) {
@@ -40,7 +42,7 @@ function captcha() {
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = Router.useNavigate();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -56,25 +58,38 @@ const Login = () => {
       .catch(console.error);
   }, []);
 
-  const handleLogin = () => {
-    setLoading(true);
+  const handleLogin = async () => {
+    // setLoading(true);
     console.log(email);
-    captcha()
-      .then((res: any) =>
-        axios.post("/api/user/login", {
-          ...res, // 即 ticket, randstr
-          email,
-          password: hash(password),
-        })
-      )
-      .then(() => {
-        // Message.success("登录成功，跳转到主页...");
-        window.location = '/'
-      })
-      .catch((e) => {
-        setLoading(false);
-        console.error(e);
-      });
+    const captchaResp: any = await captcha();
+    console.log(captchaResp);
+    const resp = await loginApi({
+      ...captchaResp, // 即 ticket, randstr
+      email,
+      password: hash(password),
+    }).catch((e) => {
+      setLoading(false);
+      console.error(e);
+    });
+    if (resp) {
+      navigate("/generate");
+    }
+    // captcha()
+    //   .then((res: any) =>
+    //     axios.post("/api/user/login", {
+    //       ...res, // 即 ticket, randstr
+    //       email,
+    //       password: hash(password),
+    //     })
+    //   )
+    //   .then(() => {
+    //     // Message.success("登录成功，跳转到主页...");
+    //     navigate("/generate");
+    //   })
+    //   .catch((e) => {
+    //     setLoading(false);
+    //     console.error(e);
+    //   });
   };
 
   const handleEmail = (value: string) => {
@@ -91,7 +106,7 @@ const Login = () => {
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-violet-950">
-      <div className="h-[300px] w-[400px] rounded-lg p-6 shadow-lg dark:bg-zinc-800">
+      <div className="h-[320px] w-[400px] rounded-lg p-6 shadow-lg dark:bg-zinc-800">
         <div className="mb-4 flex-col items-center justify-center text-center">
           <div className="text-2xl">欢迎</div>
           <div>登录DrawStudio</div>
@@ -118,6 +133,7 @@ const Login = () => {
           忘记密码？
         </Link>
         <Theme.Button
+          loading={loading}
           color="brand"
           fullWidth
           size="lg"
