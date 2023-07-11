@@ -21,6 +21,7 @@ export function Images({ className }: Images.Props) {
   const count = outputs.length + placeholderOffset;
 
   const { isFetching, fetchPreviousPage, hasPreviousPage } = Query.use();
+  console.log("🚀 ~ file: index.tsx:24 ~ Images ~ hasPreviousPage:", hasPreviousPage)
 
   const parentRef = useRef<HTMLDivElement>(null);
   const parentOffsetRef = useRef(0);
@@ -165,7 +166,7 @@ export function Images({ className }: Images.Props) {
           style={{ height: virtualizer.getTotalSize() }}
         >
           <div
-            className="absolute top-0 left-0 w-full"
+            className="absolute left-0 top-0 w-full"
             style={{
               transform: `translateY(${
                 (virtualItems[0]?.start ?? 0) - virtualizer.options.scrollMargin

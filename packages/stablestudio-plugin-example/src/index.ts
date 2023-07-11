@@ -55,10 +55,51 @@ export const createPlugin = StableStudio.createPlugin<{
     };
   },
 
-  getStableDiffusionExistingImages: async () => {
-    const resp = await axios.post("/api/draw/list");
-    console.log(resp);
-    return {} as any;
+  getStableDiffusionExistingImages: async (options) => {
+    const resp = await axios.post("/api/draw/list-studio", {
+      ...options,
+    });
+    const images = [];
+    let responseData = {} as any;
+    console.log(responseData);
+    if (resp && resp.status === 200) {
+      responseData = resp.data;
+    }
+    if (responseData) {
+      const { imgs, ctime, prompt, style, pid } = responseData;
+      for (let i = 0; i < imgs.length; i++) {
+        const imageInfo = imgs[i];
+        const createdAt = new Date(ctime);
+
+        const stableDiffusionImage = {
+          id: pid,
+          createdAt: createdAt,
+          src: imageInfo.small,
+          input: {
+            prompts: [
+              {
+                text: prompt,
+                // weight: imageInfo["CFG scale"],
+              },
+            ],
+            style: style,
+            steps: 30,
+            seed: -1,
+            model: imageInfo["Model"] ?? "",
+            width: imageInfo["small_dim"].width,
+            height: imageInfo["small_dim"].height,
+          },
+        };
+
+        images.push(stableDiffusionImage);
+      }
+    }
+    return [
+      {
+        id: `${Math.random() * 10000000}`,
+        images: images,
+      },
+    ];
   },
 
   getStatus: () => {

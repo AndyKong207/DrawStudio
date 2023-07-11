@@ -294,6 +294,8 @@ export type StableDiffusionImage = {
   input?: StableDiffusionInput;
 
   blob?: Blob;
+
+  src?: string;
 };
 
 /** Allows both asynchronous and synchronous return types */
