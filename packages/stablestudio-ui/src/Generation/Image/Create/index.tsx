@@ -209,45 +209,53 @@ function cropImage(
   input: Generation.Image.Input
 ) {
   return new Promise<Generation.Image | void>((resolve) => {
-    const id = image.id;
-    const blob = image.blob;
-    if (!blob || !id) return resolve();
+    const id = image.src;
+    const src = image.src;
+
+    resolve({
+      id: id!,
+      inputID: input.id,
+      created: new Date(),
+      src: src,
+      finishReason: 0,
+    });
+    // if (!blob || !id) return resolve();
 
     // crop image to box size
-    const croppedCanvas = document.createElement("canvas");
-    croppedCanvas.width = input.width;
-    croppedCanvas.height = input.height;
+    // const croppedCanvas = document.createElement("canvas");
+    // croppedCanvas.width = input.width;
+    // croppedCanvas.height = input.height;
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const croppedCtx = croppedCanvas.getContext("2d")!;
+    // // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    // const croppedCtx = croppedCanvas.getContext("2d")!;
 
-    const img = new window.Image();
-    img.src = URL.createObjectURL(blob);
-    img.onload = () => {
-      croppedCtx.drawImage(
-        img,
-        0,
-        0,
-        input.width,
-        input.height,
-        0,
-        0,
-        input.width,
-        input.height
-      );
+    // const img = new window.Image();
+    // img.src = URL.createObjectURL(blob);
+    // img.onload = () => {
+    //   croppedCtx.drawImage(
+    //     img,
+    //     0,
+    //     0,
+    //     input.width,
+    //     input.height,
+    //     0,
+    //     0,
+    //     input.width,
+    //     input.height
+    //   );
 
-      croppedCanvas.toBlob((blob) => {
-        if (blob) {
-          const objectURL = URL.createObjectURL(blob);
-          resolve({
-            id,
-            inputID: input.id,
-            created: new Date(),
-            src: objectURL,
-            finishReason: 0,
-          });
-        }
-      });
-    };
+    //   croppedCanvas.toBlob((blob) => {
+    //     if (blob) {
+    //       const objectURL = URL.createObjectURL(blob);
+    //       resolve({
+    //         id,
+    //         inputID: input.id,
+    //         created: new Date(),
+    //         src: objectURL,
+    //         finishReason: 0,
+    //       });
+    //     }
+    //   });
+    // };
   });
 }

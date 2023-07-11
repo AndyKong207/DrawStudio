@@ -21,7 +21,6 @@ export function Images({ className }: Images.Props) {
   const count = outputs.length + placeholderOffset;
 
   const { isFetching, fetchPreviousPage, hasPreviousPage } = Query.use();
-  console.log("🚀 ~ file: index.tsx:24 ~ Images ~ hasPreviousPage:", hasPreviousPage)
 
   const parentRef = useRef<HTMLDivElement>(null);
   const parentOffsetRef = useRef(0);
