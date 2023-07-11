@@ -1,4 +1,24 @@
+import Cookies from "js-cookie";
+import { logout } from "~/api/modules/user";
+import { Router } from "~/Router";
+
 const Account = () => {
+  const navigate = Router.useNavigate();
+  const [userInfo, setUserInfo] = useState<any>();
+
+  useEffect(() => {
+    setUserInfo(JSON.parse(localStorage.getItem("user") as string));
+  }, []);
+
+  const handleLogout = async () => {
+    Cookies.remove("banruo.sig");
+    Cookies.remove("banruo");
+    const resp = await logout();
+    if (resp) {
+      navigate("/signin");
+    }
+  };
+
   return (
     <div className="h-full justify-between overflow-y-auto bg-zinc-900 px-5 py-6">
       <div className="mx-auto flex max-w-[70rem] flex-col gap-8">
@@ -25,17 +45,17 @@ const Account = () => {
             </div>
             <div className="flex flex-col justify-between gap-1 text-left">
               <h5 className="text-2xl font-medium text-zinc-900 dark:text-white">
-                dstudio818@gmail.com
+                {userInfo?.email}
               </h5>
               <span className="text-md text-zinc-500 dark:text-zinc-400">
-                dstudio818@gmail.com
+                {userInfo?.phone}
               </span>
             </div>
           </div>
           <div className="flex h-full flex-col justify-between gap-2 ">
             <a
-              className="text-brand-600 dark:text-brand-400 text-right font-medium hover:underline"
-              href="/logout"
+              className="text-brand-600 dark:text-brand-400 cursor-pointer text-right font-medium hover:underline"
+              onClick={handleLogout}
             >
               Log out
             </a>

@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { check, getUserInfo } from "~/api/modules/user";
+import { GlobalState } from "~/GlobalState";
 import { Router } from "~/Router";
 import { Shortcut } from "~/Shortcut";
 import { Theme } from "~/Theme";
@@ -9,8 +11,23 @@ export const Right = () => {
   const apiKey = localStorage.getItem("stability-apiKey");
   const navigate = Router.useNavigate();
 
+  const [userInfo, setUserInfo] = useState<any>();
+
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
   const handleLogin = () => {
     navigate("/signin");
+  };
+
+  const fetchUserInfo = async () => {
+    const resp = await check().catch(console.error);
+    if (resp) {
+      const userInfo = await getUserInfo();
+      setUserInfo(userInfo);
+      localStorage.setItem("user", JSON.stringify(userInfo));
+    }
   };
 
   return (
@@ -30,7 +47,7 @@ export const Right = () => {
             <Shortcut.Keys keys={["Meta", "k"]} className="ml-2" />
           </Theme.Button>
         )}
-        {apiKey ? (
+        {userInfo ? (
           <Link to="/account">
             <div className="flex aspect-square h-full items-center justify-center rounded-full bg-gray-400 text-xl">
               <svg
