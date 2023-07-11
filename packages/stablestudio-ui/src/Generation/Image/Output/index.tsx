@@ -54,6 +54,7 @@ export function Output({ outputID, placeholder, divider }: Props) {
       { length: count },
       (_, index) => images[index] ?? { inputID: input?.id }
     );
+    console.log("🚀 ~ file: index.tsx:57 ~ content ~ items:", items);
 
     const rendered = items.map((image, index, images) => (
       <Generation.Image
