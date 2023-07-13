@@ -114,7 +114,8 @@ namespace State {
 
   export const use = GlobalState.create<State>((set) => {
     const { createPlugin: createRootPlugin } =
-      Environment.get("USE_EXAMPLE_PLUGIN") === "true"
+      // Environment.get("USE_EXAMPLE_PLUGIN") === "true"
+      1
         ? StableStudioPluginExample
         : Environment.get("USE_WEBUI_PLUGIN") === "true"
         ? StableStudioPluginWebUI

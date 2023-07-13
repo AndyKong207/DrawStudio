@@ -15,6 +15,8 @@ export function App() {
     setIsShowTopBar(!paths.includes(window.location.pathname));
   }, []);
 
+  if (window.location.pathname === "/") window.location.href = "/draw-studio";
+
   return useMemo(
     () => (
       <Providers>

@@ -77,8 +77,8 @@ export namespace Tab {
     }, [props, setTab]);
 
     useEffect(() => {
-      (window.location.pathname === props.route ||
-        (window.location.pathname === "/" && props.defaultActive)) &&
+      (location.pathname === props.route ||
+        (location.pathname === "/" && props.defaultActive)) &&
         setSidebar((sidebar) => ({ ...sidebar, tab: props.name }));
     }, [props.name, props.defaultActive, setSidebar, props.route, location]);
 
