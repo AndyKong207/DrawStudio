@@ -27,13 +27,16 @@ export const createPlugin = StableStudio.createPlugin<{
     // const blob = await image.blob();
     // const createdAt = new Date();
 
-    const { initialImage, style } = options?.input ?? {};
+    const { initialImage, style, maskImage } = options?.input ?? {};
 
     const form = new FormData();
 
     // img 可选，类型是[File](https://developer.mozilla.org/en-US/docs/Web/API/File), 表示用户上传的底图
     if (initialImage?.blob) {
       form.append("img", initialImage?.blob);
+    }
+    if (maskImage?.blob) {
+      form.append("mask_image", maskImage?.blob);
     }
     // samples 是整数，表示要生成的图的数量，范围是1-4
     const samples = options?.count ?? getStableDiffusionDefaultCount();
@@ -43,7 +46,7 @@ export const createPlugin = StableStudio.createPlugin<{
     form.append("prompt", prompt);
     // // image_strength 表示底图对结果影响的权重
     const weight = initialImage?.weight;
-    form.append("image_strength", `${weight}`);
+    if (weight) form.append("image_strength", `${weight}`);
     // style 表示作图风格，可选值是下面这个对象的所有key，在页面展示的话用对应的value
     // {
     //   '3d-model': '3D模型',
