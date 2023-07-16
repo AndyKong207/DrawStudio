@@ -20,6 +20,142 @@ export const createPlugin = StableStudio.createPlugin<{
     description: "An example plugin for StableStudio",
   },
 
+  getStableDiffusionModels: () => {
+    return [
+      {
+        id: "stable-diffusion-xl-beta-v2-2-2",
+        name: "stable-diffusion-xl-beta-v2-2-2",
+      },
+      {
+        id: "stable-diffusion-xl-1024-v0-9",
+        name: "stable-diffusion-xl-1024-v0-9",
+      },
+      {
+        id: "stable-inpainting-512-v2-0",
+        name: "stable-inpainting-512-v2-0",
+      },
+    ];
+  },
+
+  getStableDiffusionSamplers: () => [
+    { id: "0", name: "DDIM" },
+    { id: "1", name: "DDPM" },
+    { id: "2", name: "K Euler" },
+    { id: "3", name: "K Euler Ancestral" },
+    { id: "4", name: "K Heun" },
+    { id: "5", name: "K DPM 2" },
+    { id: "6", name: "K DPM 2 Ancestral" },
+    { id: "7", name: "K LMS" },
+    { id: "8", name: "K DPM++ 2S Ancestral" },
+    { id: "9", name: "K DPM++ 2M" },
+    { id: "10", name: "K DPM++ SDE" },
+  ],
+
+  getStableDiffusionStyles: () => [
+    {
+      id: "enhance",
+      name: "增强风格",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/2%E5%A2%9E%E5%BC%BA%E9%A3%8E%E6%A0%BCenhance-50.png",
+    },
+    {
+      id: "anime",
+      name: "动漫风格",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/3%E5%8A%A8%E6%BC%AB%E9%A3%8E%E6%A0%BCanime-50.png",
+    },
+    {
+      id: "photographic",
+      name: "照片摄影",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/4%E7%85%A7%E7%89%87%E6%91%84%E5%BD%B1potographic-50.png",
+    },
+    {
+      id: "digital-art",
+      name: "数码艺术",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/5%E6%95%B0%E7%A0%81%E8%89%BA%E6%9C%AF.png",
+    },
+    {
+      id: "comic-book",
+      name: "漫画风格",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/6%E6%BC%AB%E7%94%BB%E9%A3%8E%E6%A0%BCcomic-book-50.png",
+    },
+    {
+      id: "fantasy-art",
+      name: "奇幻艺术",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/7%E5%A5%87%E5%B9%BB%E8%89%BA%E6%9C%AF.png",
+    },
+    {
+      id: "analog-film",
+      name: "老胶片风",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/8%E8%80%81%E8%83%B6%E7%89%87%E9%A3%8Eanalog-film-50.png",
+    },
+    {
+      id: "neon-punk",
+      name: "霓虹朋克",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/9%E9%9C%93%E8%99%B9%E6%9C%8B%E5%85%8Bneon-punk-50.png",
+    },
+    {
+      id: "isometric",
+      name: "等距风格",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/10%E7%AD%89%E8%B7%9D%E9%A3%8E%E6%A0%BCIsometric-50.png",
+    },
+    {
+      id: "low-poly",
+      name: "低多边形",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/11%E4%BD%8E%E5%A4%9A%E8%BE%B9%E5%BD%A2low-poly-50.png",
+    },
+    {
+      id: "origami",
+      name: "折纸艺术",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/12%E6%8A%98%E7%BA%B8%E8%89%BA%E6%9C%AF.png",
+    },
+    {
+      id: "line-art",
+      name: "线描艺术",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/13%E7%BA%BF%E6%8F%8F%E8%89%BA%E6%9C%AF.png",
+    },
+    {
+      id: "modeling-compound",
+      name: "橡皮泥风",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/14%E6%A9%A1%E7%9A%AE%E6%B3%A5%E9%A3%8Emodeling-compound-50.png",
+    },
+    {
+      id: "cinematic",
+      name: "电影风格",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/15%E7%94%B5%E5%BD%B1%E9%A3%8E%E6%A0%BCcinematic-50.png",
+    },
+    {
+      id: "3d-model",
+      name: "3D模型",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/16-3D%E6%A8%A1%E5%9E%8B3D-model-50.png",
+    },
+    {
+      id: "pixel-art",
+      name: "像素风格",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/17%E5%83%8F%E7%B4%A0%E9%A3%8E%E6%A0%BCpixel-art-50.png",
+    },
+    {
+      id: "title-texture",
+      name: "瓷砖纹理",
+      image:
+        "https://draw-1304100014.cos.ap-shanghai.myqcloud.com/%E9%A3%8E%E6%A0%BC%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9%E5%90%8E/%E5%8E%8B%E7%BC%A9%E5%90%8E/18%E7%93%B7%E7%A0%96%E7%BA%B9%E7%90%86title-texture-50.png",
+    },
+  ],
+
   getStableDiffusionDefaultCount: () => 4,
 
   createStableDiffusionImages: async (options) => {
@@ -194,6 +330,15 @@ export const createPlugin = StableStudio.createPlugin<{
           images?.[images.length - 1]?.exclusiveStartImageID,
       },
     ];
+  },
+
+  deleteStableDiffusionImages: async (options) => {
+    const imageIDs = options?.imageIDs;
+    imageIDs &&
+      (await axios.post("/api/draw/remove-img", {
+        id: "",
+        assetIds: imageIDs,
+      }));
   },
 
   getStatus: () => {

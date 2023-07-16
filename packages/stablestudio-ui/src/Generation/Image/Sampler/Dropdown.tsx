@@ -27,9 +27,9 @@ export function Dropdown({ id, className }: Styleable & { id: ID }) {
   if (!input) return null;
   return (
     <Theme.Popout
-      title="Sampler"
-      label="Sampler"
-      placeholder={"Select a sampler"}
+      title="采样方法"
+      label="采样方法"
+      placeholder={"选择采样方法"}
       value={input.sampler?.id}
       className={className}
       onClick={onClick}

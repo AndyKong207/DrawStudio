@@ -38,7 +38,7 @@ export function Button({
       onClick={onClick}
       {...props}
     >
-      {children ?? (!noTitle && <>Dream</>)}
+      {children ?? (!noTitle && <>生成</>)}
     </Theme.Button>
   );
 }

@@ -46,9 +46,9 @@ export function Dropdown({ id, className }: Styleable & { id: ID }) {
   if (!input) return null;
   return (
     <Theme.Popout
-      title="Model"
-      label="Model"
-      placeholder={isLoading ? "Loading..." : "Select a Model"}
+      title="模型"
+      label="模型"
+      placeholder={isLoading ? "Loading..." : "选择一个模型"}
       value={input.model}
       className={className}
       onClick={onClick}

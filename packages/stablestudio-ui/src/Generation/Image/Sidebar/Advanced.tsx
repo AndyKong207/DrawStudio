@@ -7,8 +7,8 @@ export function Advanced({
   ...props
 }: App.Sidebar.Section.Props & { id: ID }) {
   const { setInput, input } = Generation.Image.Input.use(id);
-  const areModelsEnabled = Generation.Image.Models.useAreEnabled();
-  const areSamplersEnabled = Generation.Image.Samplers.useAreEnabled();
+  const areModelsEnabled = true; // Generation.Image.Models.useAreEnabled();
+  const areSamplersEnabled = true; //Generation.Image.Samplers.useAreEnabled();
 
   const onPromptStrengthChange = useCallback(
     (cfgScale: number) => {
@@ -47,7 +47,7 @@ export function Advanced({
   if (!input) return null;
   return (
     <App.Sidebar.Section
-      title="Advanced"
+      title="进阶设置"
       divider={false}
       collapsable
       icon={(props) =>
@@ -82,7 +82,7 @@ export function Advanced({
           >
             <Theme.NumberInput
               icon={Theme.Icon.Scale}
-              label="Prompt strength"
+              label="提示强度"
               placeholder="Auto"
               fullWidth
               number
@@ -105,7 +105,7 @@ export function Advanced({
           >
             <Theme.NumberInput
               icon={Theme.Icon.Steps}
-              label="Generation steps"
+              label="迭代步数"
               fullWidth
               number
               min={10}
@@ -131,7 +131,7 @@ export function Advanced({
               <Theme.NumberInput
                 icon={Theme.Icon.Sprout}
                 placeholder="Auto"
-                label="Seed"
+                label="种子"
                 fullWidth
                 number
                 min={1}

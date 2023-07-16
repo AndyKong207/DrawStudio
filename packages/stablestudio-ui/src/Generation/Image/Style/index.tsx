@@ -41,7 +41,7 @@ export namespace Style {
       () => [
         {
           value: "none",
-          name: "Choose style",
+          name: "选择风格",
         },
 
         ...(styles?.map((style: Style) => ({
@@ -59,7 +59,7 @@ export namespace Style {
         label="Style"
         options={options}
         value={input?.extras?.$IPC?.preset}
-        placeholder={"Choose style"}
+        placeholder={"选择风格"}
         className={classes(className)}
         onClick={(value) =>
           setInput((input) => apply({ input, styleID: value }))

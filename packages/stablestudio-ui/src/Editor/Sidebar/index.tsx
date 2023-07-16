@@ -67,7 +67,7 @@ export function Sidebar() {
         }
         button={(props) => (
           <App.Sidebar.Tab.Button {...props} onClick={props.onClick}>
-            Edit
+            局部绘画
           </App.Sidebar.Tab.Button>
         )}
       >

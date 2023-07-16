@@ -85,11 +85,7 @@ export function Prompt({
           transparent
           autoSize
           className="w-full px-0 py-0"
-          placeholder={
-            promptWeight > 0
-              ? "What do you want to see?"
-              : "What do you want to avoid?"
-          }
+          placeholder={promptWeight > 0 ? "你想画什么?" : "你想避免什么?"}
           value={promptText}
           onChange={onChange}
           onFocus={onFocus}
@@ -168,9 +164,9 @@ export function Prompt({
                 {(input.prompts[index]?.weight ?? 0) > 0
                   ? input.prompts.filter((p: Prompt) => p.weight > 0).length ===
                     1
-                    ? "Prompt"
-                    : `Prompt ${index + 1}`
-                  : "Negative prompt"}
+                    ? "正向提示（建议英语）"
+                    : `正向提示 ${index + 1}`
+                  : "反向提示（建议英语）"}
               </h1>
             </Theme.Button>
             <div className="pointer-events-none opacity-0 group-hover:pointer-events-auto group-hover:opacity-100">

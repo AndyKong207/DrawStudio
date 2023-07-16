@@ -14,7 +14,7 @@ export function Sidebar() {
   return (
     <App.Sidebar.Tab.Set
       defaultActive
-      name="Generate"
+      name="创作"
       route="/generate"
       position="left"
       index={0}
@@ -65,7 +65,7 @@ export namespace Sidebar {
           divider={false}
           collapsable
           defaultExpanded
-          title="Settings"
+          title="设置"
           onChange={setSettingsOpen}
         >
           <div className="flex flex-col gap-4">

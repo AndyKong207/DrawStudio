@@ -52,7 +52,7 @@ export namespace Sidebar {
         divider
         collapsable
         padding="sm"
-        title={input.init ? "Image" : "Upload image"}
+        title={input.init ? "图片" : "上传图片"}
         defaultExpanded={defaultExpanded}
         button={(props) =>
           input.init ? (
@@ -119,7 +119,7 @@ export namespace Sidebar {
                     />
                   </div>
                   <Theme.Icon.Upload
-                    className="absolute top-1/2 left-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 transform text-white mix-blend-overlay group-hover:block"
+                    className="absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 transform text-white mix-blend-overlay group-hover:block"
                     size={24}
                   />
                 </div>
@@ -145,7 +145,7 @@ export namespace Sidebar {
             ) : (
               <div
                 className={classes(
-                  "group flex cursor-pointer flex-col items-center justify-center gap-4 rounded bg-zinc-800 py-4 px-3 text-center"
+                  "group flex cursor-pointer flex-col items-center justify-center gap-4 rounded bg-zinc-800 px-3 py-4 text-center"
                 )}
                 {...uploadProps}
                 onClick={importInit}
@@ -167,7 +167,7 @@ export namespace Sidebar {
                       className="opacity-75 duration-100 group-hover:opacity-100"
                     />
                     <h3 className="opacity-75 duration-100 group-hover:opacity-100">
-                      Upload an image to create variations
+                      上传图像以图生图
                     </h3>
                   </>
                 )}

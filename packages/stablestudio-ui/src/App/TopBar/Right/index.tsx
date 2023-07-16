@@ -33,7 +33,7 @@ export const Right = () => {
   return (
     <div className="flex grow basis-0 items-center justify-end gap-2">
       <>
-        {!isMobileDevice && (
+        {/* {!isMobileDevice && (
           <Theme.Button
             outline
             className="rounded-full"
@@ -46,7 +46,7 @@ export const Right = () => {
             Shortcuts
             <Shortcut.Keys keys={["Meta", "k"]} className="ml-2" />
           </Theme.Button>
-        )}
+        )} */}
         {userInfo ? (
           <Link to="/account">
             <div className="flex aspect-square h-full items-center justify-center rounded-full bg-gray-400 text-xl">
@@ -69,7 +69,7 @@ export const Right = () => {
           </Link>
         )}
 
-        <Link to="/settings">
+        {/* <Link to="/settings">
           <Theme.Button
             outline
             label="Settings"
@@ -77,7 +77,7 @@ export const Right = () => {
             className="aspect-square h-[30px] w-[30px]"
             icon={Theme.Icon.Settings}
           />
-        </Link>
+        </Link> */}
       </>
     </div>
   );
