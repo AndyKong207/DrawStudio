@@ -169,6 +169,10 @@ export const createPlugin = StableStudio.createPlugin<{
   getStableDiffusionDefaultCount: () => 4,
 
   createStableDiffusionImages: async (options) => {
+    console.log(
+      "🚀 ~ file: index.ts:172 ~ createStableDiffusionImages: ~ options:",
+      options
+    );
     // const image = await fetch(`${window.location.origin}/DummyImage.png`);
     // const blob = await image.blob();
     // const createdAt = new Date();
@@ -190,9 +194,10 @@ export const createPlugin = StableStudio.createPlugin<{
     // // prompt 表示提示词，如果没选底图，那么必须传prompt
     const prompt = options?.input?.prompts?.[0]?.text as string;
     form.append("prompt", prompt);
-    // // image_strength 表示底图对结果影响的权重
-    const weight = initialImage?.weight;
-    if (weight) form.append("image_strength", `${weight}`);
+
+    const negativePrompt = options?.input?.prompts?.[1]?.text as string;
+    // negative_prompt 表示反向提示词，表示不希望图中出现的元素，可不填
+    form.append("negative_prompt", negativePrompt);
     // style 表示作图风格，可选值是下面这个对象的所有key，在页面展示的话用对应的value
     // {
     //   '3d-model': '3D模型',
@@ -215,6 +220,38 @@ export const createPlugin = StableStudio.createPlugin<{
     // }
     if (style) {
       form.append("style", style);
+    }
+
+    // seed 表示种子,整数,范围[ 0 .. 4294967295 ]，默认值为0，表示随机生成
+    if (options?.input?.seed) {
+      form.append("seed", options?.input?.seed as unknown as string);
+    }
+
+    if (options?.input?.steps) {
+      form.append("steps", options?.input?.steps as unknown as string);
+    }
+    // steps 表示步数，整数，默认值为 30，取值范围[ 10 .. 150 ]
+
+    //sampler 表示采样器，可不填，可选值为以下之一
+    // DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
+    if (options?.input?.sampler?.name) {
+      form.append("sampler", options?.input?.sampler?.name);
+    }
+
+    // engine表示作图引擎，可选值为下面三个，默认值为第一个
+    // stable-diffusion-xl-beta-v2-2-2
+    // stable-diffusion-xl-1024-v0-9
+    // stable-inpainting-512-v2-0
+    if (options?.input?.model) {
+      form.append("engine", options?.input?.model);
+    }
+
+    // image_strength 表示底图对结果影响的权重
+    if (options?.input?.cfgScale) {
+      form.append(
+        "image_strength",
+        options?.input?.cfgScale as unknown as string
+      );
     }
 
     const resp = await axios.post("/api/draw/create", form);
