@@ -156,6 +156,16 @@ export const createPlugin = StableStudio.createPlugin<{
     },
   ],
 
+  deleteStableDiffusionImages: async (options) => {
+    const imageIDs = options?.imageIDs || [];
+    await Promise.all(
+      imageIDs.map((v) => {
+        const [pid, small] = v.split("|");
+        return axios.post("/api/draw/remove-img", { small, pid });
+      })
+    );
+  },
+
   getStableDiffusionDefaultCount: () => 4,
 
   createStableDiffusionImages: async (options) => {
@@ -222,7 +232,8 @@ export const createPlugin = StableStudio.createPlugin<{
         const createdAt = new Date(ctime);
 
         const stableDiffusionImage = {
-          id: pid,
+          // id: pid,
+          id: `${pid}|${imageInfo.small}`,
           exclusiveStartImageID: exclusiveStartImageID,
           createdAt: createdAt,
           src: imageInfo.small,
@@ -299,7 +310,8 @@ export const createPlugin = StableStudio.createPlugin<{
         const createdAt = new Date(ctime);
 
         const stableDiffusionImage = {
-          id: pid,
+          // id: pid,
+          id: `${pid}|${imageInfo.small}`,
           exclusiveStartImageID: exclusiveStartImageID,
           createdAt: createdAt,
           src: imageInfo.small,
@@ -330,15 +342,6 @@ export const createPlugin = StableStudio.createPlugin<{
           images?.[images.length - 1]?.exclusiveStartImageID,
       },
     ];
-  },
-
-  deleteStableDiffusionImages: async (options) => {
-    const imageIDs = options?.imageIDs;
-    imageIDs &&
-      (await axios.post("/api/draw/remove-img", {
-        id: "",
-        assetIds: imageIDs,
-      }));
   },
 
   getStatus: () => {
