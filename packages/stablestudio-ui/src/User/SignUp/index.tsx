@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
+import { captcha, signup } from "~/api/modules/user";
+import { Router } from "~/Router";
 import { Theme } from "~/Theme";
+import { hash } from "~/utils";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = Router.useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [isShowPwd, setIsShowPwd] = useState(false);
 
   const handleEmail = (value: string) => {
     setEmail(value);
@@ -14,7 +20,25 @@ const Login = () => {
   };
 
   const handleShowPassword = () => {
-    console.log("first");
+    setIsShowPwd(!isShowPwd);
+  };
+
+  const handleRegister = async () => {
+    setLoading(true);
+    console.log(email);
+    const captchaResp: any = await captcha();
+    console.log(captchaResp);
+    const resp = await signup({
+      ...captchaResp, // 即 ticket, randstr
+      email,
+      password: hash(password),
+    }).catch((e) => {
+      setLoading(false);
+      console.error(e);
+    });
+    if (resp) {
+      navigate("/signin");
+    }
   };
 
   return (
@@ -24,29 +48,34 @@ const Login = () => {
           <div className="text-2xl">欢迎</div>
           <div>注册DrawStudio</div>
         </div>
-        <form>
-          <Theme.Input
-            value={email}
-            onChange={handleEmail}
-            className="mb-4 h-12"
-            size="lg"
-            placeholder="邮箱"
-            type="email"
-          />
-          <Theme.Input
-            value={password}
-            onChange={handlePassword}
-            className="mb-6 h-12"
-            size="lg"
-            placeholder="密码"
-            type="password"
-            // iconRight={Theme.Icon.Eye}
-            onRightIconClick={handleShowPassword}
-          />
-          <Theme.Button color="brand" fullWidth size="lg" className="mb-2">
-            登录
-          </Theme.Button>
-        </form>
+        <Theme.Input
+          value={email}
+          onChange={handleEmail}
+          className="mb-4 h-12"
+          size="lg"
+          placeholder="邮箱"
+          type="email"
+        />
+        <Theme.Input
+          value={password}
+          onChange={handlePassword}
+          className="mb-6 h-12"
+          size="lg"
+          placeholder="密码"
+          type={isShowPwd ? "text" : "password"}
+          iconRight={Theme.Icon.Eye}
+          onRightIconClick={handleShowPassword}
+        />
+        <Theme.Button
+          loading={loading}
+          color="brand"
+          fullWidth
+          size="lg"
+          className="mb-2"
+          onClick={handleRegister}
+        >
+          注册
+        </Theme.Button>
         <p className="t text-gray-400">
           已经有账号？
           <Link className="text-brand-400 hover:underline" to="/signin">

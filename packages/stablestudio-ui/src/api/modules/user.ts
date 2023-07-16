@@ -15,6 +15,9 @@ export const getUserInfo = () => {
 export const sendSms = (params: Login.ReqLoginForm) => {
   return http.post("/api/user/send-sms", params);
 };
+export const loginSms = (params: Login.ReqLoginForm) => {
+  return http.post("/api/user/login-sms", params);
+};
 export const signup = (params: Login.ReqLoginForm) => {
   return http.post("/api/user/signup", params);
 };
