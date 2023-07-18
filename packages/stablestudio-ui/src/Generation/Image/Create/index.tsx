@@ -209,11 +209,11 @@ function cropImage(
   input: Generation.Image.Input
 ) {
   return new Promise<Generation.Image | void>((resolve) => {
-    const id = image.src;
+    const id = image.id; // fuck
     const src = image.src;
 
     resolve({
-      id: id!,
+      id,
       inputID: input.id,
       created: new Date(),
       src: src,

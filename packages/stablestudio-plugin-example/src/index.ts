@@ -285,17 +285,23 @@ export const createPlugin = StableStudio.createPlugin<{
       responseData = resp.data;
     }
     if (responseData) {
-      const { imgs, ctime, prompt, style, pid, exclusiveStartImageID } =
-        responseData;
+      const {
+        imgs,
+        ctime,
+        prompt,
+        steps,
+        engine,
+        style,
+        pid,
+        exclusiveStartImageID,
+      } = responseData;
       for (let i = 0; i < imgs.length; i++) {
         const imageInfo = imgs[i];
         const createdAt = new Date(ctime);
-
         const stableDiffusionImage = {
-          // id: pid,
           id: `${pid}|${imageInfo.small}`,
-          exclusiveStartImageID: exclusiveStartImageID,
-          createdAt: createdAt,
+          exclusiveStartImageID,
+          createdAt,
           src: imageInfo.small,
           input: {
             prompts: [
@@ -304,10 +310,10 @@ export const createPlugin = StableStudio.createPlugin<{
                 // weight: imageInfo["CFG scale"],
               },
             ],
-            style: style,
-            steps: 30,
-            seed: -1,
-            model: imageInfo["Model"] ?? "",
+            style,
+            steps,
+            seed: imageInfo.seed,
+            model: engine,
             width: imageInfo["small_dim"].width,
             height: imageInfo["small_dim"].height,
           },
@@ -363,14 +369,21 @@ export const createPlugin = StableStudio.createPlugin<{
       responseData = resp.data;
     }
     if (responseData) {
-      const { imgs, ctime, prompt, style, pid, exclusiveStartImageID } =
-        responseData;
+      const {
+        imgs,
+        ctime,
+        steps,
+        engine,
+        prompt,
+        style,
+        pid,
+        exclusiveStartImageID,
+      } = responseData;
       for (let i = 0; i < imgs.length; i++) {
         const imageInfo = imgs[i];
         const createdAt = new Date(ctime);
 
         const stableDiffusionImage = {
-          // id: pid,
           id: `${pid}|${imageInfo.small}`,
           exclusiveStartImageID: exclusiveStartImageID,
           createdAt: createdAt,
@@ -383,9 +396,9 @@ export const createPlugin = StableStudio.createPlugin<{
               },
             ],
             style: style,
-            steps: 30,
-            seed: -1,
-            model: imageInfo["Model"] ?? "",
+            steps,
+            seed: imageInfo.seed,
+            model: engine,
             width: imageInfo["small_dim"].width,
             height: imageInfo["small_dim"].height,
           },
