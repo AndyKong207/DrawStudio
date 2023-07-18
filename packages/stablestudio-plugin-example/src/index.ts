@@ -214,11 +214,11 @@ export const createPlugin = StableStudio.createPlugin<{
     form.append("samples", `${samples}`);
     // // prompt 表示提示词，如果没选底图，那么必须传prompt
     const prompt = options?.input?.prompts?.[0]?.text as string;
-    form.append("prompt", prompt);
+    if (prompt) form.append("prompt", prompt.trim());
 
     const negativePrompt = options?.input?.prompts?.[1]?.text as string;
     // negative_prompt 表示反向提示词，表示不希望图中出现的元素，可不填
-    form.append("negative_prompt", negativePrompt);
+    if (negativePrompt) form.append("negative_prompt", negativePrompt.trim());
     // style 表示作图风格，可选值是下面这个对象的所有key，在页面展示的话用对应的value
     // {
     //   '3d-model': '3D模型',
