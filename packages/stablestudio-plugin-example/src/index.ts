@@ -206,6 +206,10 @@ export const createPlugin = StableStudio.createPlugin<{
     if (initialImage?.blob) {
       form.append("img", initialImage?.blob);
     }
+    const image_strength = Number(initialImage?.weight);
+    if (!Number.isNaN(image_strength)) {
+      form.append("image_strength", String(image_strength));
+    }
     if (maskImage?.blob) {
       form.append("mask_image", maskImage?.blob);
     }
@@ -267,12 +271,10 @@ export const createPlugin = StableStudio.createPlugin<{
       form.append("engine", options?.input?.model);
     }
 
-    // image_strength 表示底图对结果影响的权重
-    if (options?.input?.cfgScale) {
-      form.append(
-        "image_strength",
-        options?.input?.cfgScale as unknown as string
-      );
+    // todo 判断取值范围 0-35之间的整数，可不填
+    const prompt_strength = Number(options?.input?.cfgScale);
+    if (!Number.isNaN(prompt_strength)) {
+      form.append("prompt_strength", String(prompt_strength));
     }
 
     const resp = await axios.post("/api/draw/create", form);
