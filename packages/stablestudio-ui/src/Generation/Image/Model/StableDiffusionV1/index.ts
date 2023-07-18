@@ -60,7 +60,7 @@ export namespace StableDiffusionV1 {
         steps: pluginDefaultInput?.steps ?? 50,
         seed: pluginDefaultInput?.seed ?? 0,
         guidance: false,
-        strength: 1,
+        strength: 0.35,
         mask: null,
         init: null,
         extras: {

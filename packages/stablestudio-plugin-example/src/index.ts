@@ -6,7 +6,7 @@ export const createPlugin = StableStudio.createPlugin<{
   settings: {
     exampleSetting: StableStudio.PluginSettingString;
   };
-}>(({ set, get }) => ({
+}>(({ set, get, context }) => ({
   imagesGeneratedSoFar: 0,
 
   manifest: {
@@ -22,7 +22,7 @@ export const createPlugin = StableStudio.createPlugin<{
   getStableDiffusionDefaultInput: () => ({
     prompts: [
       {
-        text: "masterpiece",
+        text: context.getStableDiffusionRandomPrompt(),
         weight: 1,
       },
 
@@ -60,6 +60,9 @@ export const createPlugin = StableStudio.createPlugin<{
     ];
   },
 
+  // todo
+  //sampler 表示采样器，可不填，可选值为以下之一
+  // DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
   getStableDiffusionSamplers: () => [
     { id: "0", name: "DDIM" },
     { id: "1", name: "DDPM" },
@@ -198,9 +201,13 @@ export const createPlugin = StableStudio.createPlugin<{
     // const blob = await image.blob();
     // const createdAt = new Date();
 
-    const { initialImage, style, maskImage } = options?.input ?? {};
+    const { initialImage, style, maskImage, height, width } =
+      options?.input ?? {};
 
     const form = new FormData();
+
+    if (height) form.append("height", String(height));
+    if (width) form.append("width", String(width));
 
     // img 可选，类型是[File](https://developer.mozilla.org/en-US/docs/Web/API/File), 表示用户上传的底图
     if (initialImage?.blob) {
@@ -243,7 +250,8 @@ export const createPlugin = StableStudio.createPlugin<{
     //   'pixel-art': '像素风格',
     //   'tile-texture': '瓷砖纹理'
     // }
-    if (style) {
+
+    if (style && style !== "none") {
       form.append("style", style);
     }
 
@@ -271,7 +279,6 @@ export const createPlugin = StableStudio.createPlugin<{
       form.append("engine", options?.input?.model);
     }
 
-    // todo 判断取值范围 0-35之间的整数，可不填
     const prompt_strength = Number(options?.input?.cfgScale);
     if (!Number.isNaN(prompt_strength)) {
       form.append("prompt_strength", String(prompt_strength));

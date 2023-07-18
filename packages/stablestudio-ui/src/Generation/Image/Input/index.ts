@@ -2,7 +2,7 @@ import { StableDiffusionInput } from "@stability/stablestudio-plugin";
 
 import { Generation } from "~/Generation";
 import { GlobalState } from "~/GlobalState";
-import { Plugin } from "~/Plugin";
+// import { Plugin } from "~/Plugin";
 
 import { Image } from "./Image";
 import { Inputs } from "./Inputs";
@@ -227,11 +227,10 @@ export namespace Input {
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    pluginInput.prompts = isUpscaling(input)
-      ? []
-      : (input.prompts.filter(
-          (i) => i.text && i.weight
-        ) as StableDiffusionInput["prompts"]);
+    pluginInput.prompts = isUpscaling(input) ? [] : input.prompts;
+    // : (input.prompts.filter(
+    //     (i) => i.text && i.weight
+    //   ) as StableDiffusionInput["prompts"]);
 
     if (input.mask) {
       pluginInput.maskImage = {

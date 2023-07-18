@@ -225,7 +225,9 @@ export function Content({
               {input.seed && (
                 <Field name="Seed" value={input.seed?.toString()} />
               )}
-              <Field name="Steps" value={input.steps.toString()} />
+              {input.steps && (
+                <Field name="Steps" value={input.steps.toString()} />
+              )}
             </>
           )}
         </div>

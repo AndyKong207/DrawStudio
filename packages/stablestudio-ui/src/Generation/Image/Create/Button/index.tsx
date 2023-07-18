@@ -23,10 +23,10 @@ export function Button({
     [onIdleClick, originalOnClick]
   );
 
-  const validated = useMemo(
-    () => input && Generation.Image.Model.StableDiffusionV1.validate(input),
-    [input]
-  );
+  // const validated = useMemo(
+  //   () => input && Generation.Image.Model.StableDiffusionV1.validate(input),
+  //   [input]
+  // );
 
   if (!input) return null;
   return (
@@ -34,7 +34,7 @@ export function Button({
       size="lg"
       color={noBrand ? "zinc" : "brand"}
       icon={Theme.Icon.Dream}
-      disabled={disabled || !isEnabled || !validated}
+      disabled={disabled || !isEnabled}
       onClick={onClick}
       {...props}
     >
