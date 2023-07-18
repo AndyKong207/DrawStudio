@@ -1,7 +1,6 @@
 import * as StableStudio from "@stability/stablestudio-plugin";
 import axios from "axios";
 
-const getStableDiffusionDefaultCount = () => 4;
 export const createPlugin = StableStudio.createPlugin<{
   imagesGeneratedSoFar: number;
   settings: {
@@ -19,6 +18,30 @@ export const createPlugin = StableStudio.createPlugin<{
     license: "MIT",
     description: "An example plugin for StableStudio",
   },
+
+  getStableDiffusionDefaultInput: () => ({
+    prompts: [
+      {
+        text: "masterpiece",
+        weight: 1,
+      },
+
+      {
+        text: "",
+        weight: -0.75,
+      },
+    ],
+
+    model: "stable-diffusion-xl-beta-v2-2-2",
+    sampler: { id: "0", name: "DDIM" },
+    style: "enhance",
+
+    width: 512,
+    height: 512,
+
+    cfgScale: 7,
+    steps: 30,
+  }),
 
   getStableDiffusionModels: () => {
     return [
@@ -166,8 +189,6 @@ export const createPlugin = StableStudio.createPlugin<{
     );
   },
 
-  getStableDiffusionDefaultCount: () => 4,
-
   createStableDiffusionImages: async (options) => {
     console.log(
       "🚀 ~ file: index.ts:172 ~ createStableDiffusionImages: ~ options:",
@@ -189,7 +210,7 @@ export const createPlugin = StableStudio.createPlugin<{
       form.append("mask_image", maskImage?.blob);
     }
     // samples 是整数，表示要生成的图的数量，范围是1-4
-    const samples = options?.count ?? getStableDiffusionDefaultCount();
+    const samples = options?.count;
     form.append("samples", `${samples}`);
     // // prompt 表示提示词，如果没选底图，那么必须传prompt
     const prompt = options?.input?.prompts?.[0]?.text as string;
