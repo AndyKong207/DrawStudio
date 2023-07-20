@@ -28,7 +28,7 @@ export const createPlugin = StableStudio.createPlugin<{
 
       {
         text: "",
-        weight: -0.75,
+        weight: -1,
       },
     ],
 
@@ -296,6 +296,7 @@ export const createPlugin = StableStudio.createPlugin<{
         imgs,
         ctime,
         prompt,
+        negative_prompt,
         steps,
         engine,
         style,
@@ -314,7 +315,11 @@ export const createPlugin = StableStudio.createPlugin<{
             prompts: [
               {
                 text: prompt,
-                // weight: imageInfo["CFG scale"],
+                weight: 1,
+              },
+              {
+                text: negative_prompt || "",
+                weight: -1,
               },
             ],
             style,
@@ -382,6 +387,7 @@ export const createPlugin = StableStudio.createPlugin<{
         steps,
         engine,
         prompt,
+        negative_prompt,
         style,
         pid,
         exclusiveStartImageID,
@@ -399,7 +405,11 @@ export const createPlugin = StableStudio.createPlugin<{
             prompts: [
               {
                 text: prompt,
-                // weight: imageInfo["CFG scale"],
+                weight: 1,
+              },
+              {
+                text: negative_prompt || "",
+                weight: -1,
               },
             ],
             style: style,
