@@ -46,16 +46,16 @@ export const createPlugin = StableStudio.createPlugin<{
   getStableDiffusionModels: () => {
     return [
       {
-        id: "stable-diffusion-xl-beta-v2-2-2",
-        name: "stable-diffusion-xl-beta-v2-2-2",
+        id: "SDXL",
+        name: "SDXL",
       },
       {
-        id: "stable-diffusion-xl-1024-v0-9",
-        name: "stable-diffusion-xl-1024-v0-9",
+        id: "SDxl-v0-9",
+        name: "SDxl-v0-9",
       },
       {
-        id: "stable-inpainting-512-v2-0",
-        name: "stable-inpainting-512-v2-0",
+        id: "inpainting-v2-0",
+        name: "inpainting-v2-0",
       },
     ];
   },

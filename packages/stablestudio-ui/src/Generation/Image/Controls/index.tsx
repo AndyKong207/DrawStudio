@@ -41,7 +41,7 @@ export function Controls({ image }: { image: Generation.Image }) {
     () => (
       <Button
         icon={Theme.Icon.Edit}
-        name="Edit image"
+        name="编辑/重绘"
         onClick={sendToEditor}
         color="zinc"
         transparent
@@ -54,7 +54,7 @@ export function Controls({ image }: { image: Generation.Image }) {
     () => (
       <Button
         icon={Theme.Icon.Image}
-        name={isInitialImage ? "Initial image" : "Set as initial image"}
+        name={isInitialImage ? "Initial image" : "以图生图"}
         disabled={isInitialImage}
         className={classes(isInitialImage && "opacity-50")}
         onClick={() => setInitialImage(image)}
@@ -82,7 +82,7 @@ export function Controls({ image }: { image: Generation.Image }) {
                 {editorButton}
                 {initialImageButton}
                 <Generation.Image.Controls.Button
-                  name="Download image"
+                  name="下载"
                   icon={Theme.Icon.Download}
                   onClick={() => download()}
                   transparent
@@ -95,7 +95,7 @@ export function Controls({ image }: { image: Generation.Image }) {
             <Generation.Image.Controls.Buttons className="justify-start" y={6}>
               {initialImageButton}
               <Generation.Image.Controls.Button
-                name="Download image"
+                name="下载"
                 icon={Theme.Icon.Download}
                 onClick={() => download()}
                 transparent

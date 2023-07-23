@@ -42,7 +42,7 @@ export function Modal() {
       {image && (
         <Theme.Modal.Panel className="flex w-[25rem] grow">
           <Theme.Modal.TopBar onClose={() => setImage()}>
-            <Theme.Modal.Title className="text-lg">Download</Theme.Modal.Title>
+            <Theme.Modal.Title className="text-lg">下载</Theme.Modal.Title>
           </Theme.Modal.TopBar>
           <div className="flex flex-col gap-3 p-2">
             <div className="flex items-center justify-between">
@@ -65,7 +65,7 @@ export function Modal() {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <Theme.Label className="mb-0 ml-0">Upscale</Theme.Label>
+                <Theme.Label className="mb-0 ml-0">高清</Theme.Label>
                 <Theme.Dropdown
                   fullWidth
                   className="mx-0"
@@ -111,8 +111,8 @@ export function Modal() {
               {upscaling
                 ? "Upscaling..."
                 : goingToUpscale
-                ? "Upscale and download"
-                : "Download"}
+                ? "高清下载"
+                : "下载"}
             </Theme.Button>
           </div>
         </Theme.Modal.Panel>

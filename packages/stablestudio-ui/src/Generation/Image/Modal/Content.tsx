@@ -168,7 +168,7 @@ export function Content({
             <Theme.Button
               outline
               icon={Theme.Icon.Edit}
-              label="Edit image"
+              label="编辑/重绘"
               onClick={sendToEditor}
             />
             <Theme.Button
@@ -189,7 +189,7 @@ export function Content({
               outline
               icon={Theme.Icon.Download}
               disabled={loading}
-              label="Download"
+              label="下载"
               onClick={() => download()}
             />
           </div>

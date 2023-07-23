@@ -67,7 +67,7 @@ export function Sidebar() {
         }
         button={(props) => (
           <App.Sidebar.Tab.Button {...props} onClick={props.onClick}>
-            局部绘画
+            局部重绘
           </App.Sidebar.Tab.Button>
         )}
       >

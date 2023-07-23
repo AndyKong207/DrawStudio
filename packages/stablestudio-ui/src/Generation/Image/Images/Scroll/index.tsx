@@ -44,7 +44,7 @@ export function Scroll({
             exit={{ opacity: 0 }}
           >
             <Theme.Icon.ChevronUp size={18} className="-mr-1" />
-            <h1>Scroll to top</h1>
+            <h1>最新</h1>
             {newOutputs.length > 0 && (
               <div className="ml-1 flex items-center">
                 {newOutputs

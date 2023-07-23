@@ -9,7 +9,7 @@ export namespace Create {
           placement="top"
           content={
             <div className="-mr-1 flex flex-row items-center gap-2">
-              <p>Generate variations</p>
+              <p>以此生成变体</p>
             </div>
           }
         >
@@ -19,7 +19,7 @@ export namespace Create {
             size="md"
             icon={Theme.Icon.Variation}
           >
-            {!props.noTitle && <>Variations</>}
+            {!props.noTitle && <>变化</>}
           </Generation.Image.Create.Button>
         </Theme.Tooltip>
       </div>

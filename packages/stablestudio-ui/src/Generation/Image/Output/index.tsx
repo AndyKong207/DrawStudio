@@ -91,7 +91,7 @@ export function Output({ outputID, placeholder, divider }: Props) {
         )}
         {!placeholder && !isGenerating && (
           <div className="flex w-full flex-row items-center justify-end gap-2">
-            <Theme.Tooltip content={`Download ${images.length} images`}>
+            <Theme.Tooltip content={`下载整组`}>
               <Theme.Button
                 outline
                 className="shrink-0"
@@ -100,7 +100,7 @@ export function Output({ outputID, placeholder, divider }: Props) {
               />
             </Theme.Tooltip>
             <Generation.Images.Delete.Button
-              deleteTooltip={`Delete ${images.length} images`}
+              deleteTooltip={`删除整组`}
               className="shrink-0 bg-black/20"
               images={images.map(({ id }) => id)}
               outline

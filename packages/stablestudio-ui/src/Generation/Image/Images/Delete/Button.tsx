@@ -23,7 +23,7 @@ export function Button({
         <div className={classes("-py-1 rounded bg-black/75 px-1", className)}>
           <Generation.Image.Controls.Button
             alwaysShow={variant === "group"}
-            name={deleteTooltip ?? "Delete image"}
+            name={deleteTooltip ?? "删除"}
             icon={(props) => (
               <Theme.Icon.Check
                 {...props}
@@ -55,7 +55,7 @@ export function Button({
         </div>
       ) : (
         <Generation.Image.Controls.Button
-          name={deleteTooltip ?? "Delete image"}
+          name={deleteTooltip ?? "删除"}
           icon={Theme.Icon.Trash}
           onClick={() => setDeleteConfirming(true)}
           transparent={!outline}

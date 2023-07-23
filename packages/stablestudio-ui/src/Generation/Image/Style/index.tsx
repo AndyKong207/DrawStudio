@@ -56,7 +56,7 @@ export namespace Style {
     return (
       <Theme.Popout
         title="Styles"
-        label="Style"
+        label="风格"
         options={options}
         value={input?.extras?.$IPC?.preset}
         placeholder={"选择风格"}

@@ -75,15 +75,15 @@ export function Advanced({
             placement="right"
             content={
               <h1>
-                Prompt strength determines how much the
-                <br /> final image will portray your prompts.
+                控制提示词对图象的影响强度
+                <br /> 默认（建议）7-8。
               </h1>
             }
           >
             <Theme.NumberInput
               icon={Theme.Icon.Scale}
               label="提示强度"
-              placeholder="Auto"
+              placeholder="自动"
               fullWidth
               number
               min={1}
@@ -97,8 +97,8 @@ export function Advanced({
             delay={750}
             content={
               <h1>
-                Generation steps is how many times the image <br /> is sampled.
-                More steps may be more accurate.
+                控制图象生成的迭代步数，建议30-60， <br />
+                步数越多Ai引擎需要越多算力。
               </h1>
             }
             placement="right"
@@ -122,15 +122,15 @@ export function Advanced({
               delay={750}
               content={
                 <h1>
-                  Seed determines the initial noise. Using the same seed with
-                  <br /> the same settings will create a very similar image.
+                  图象由初始种子迭代发展而来，相同的参数设定+ <br />
+                  相同的种子会产生非常相似的画面。
                 </h1>
               }
               placement="right"
             >
               <Theme.NumberInput
                 icon={Theme.Icon.Sprout}
-                placeholder="Auto"
+                placeholder="自动"
                 label="种子"
                 fullWidth
                 number

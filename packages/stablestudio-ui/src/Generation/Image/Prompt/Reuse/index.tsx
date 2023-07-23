@@ -9,10 +9,7 @@ export namespace Reuse {
   }: Theme.Button.Props & { inputID: ID }) {
     const { input } = Generation.Image.Input.use(inputID);
 
-    const label = useMemo(
-      () => `Reuse prompt${input?.prompts.length ?? 0 > 1 ? "s" : ""}`,
-      [input?.prompts.length]
-    );
+    const label = useMemo(() => "重复提示", [input?.prompts.length]);
 
     const onClick = useCallback(
       (event: MouseEvent) => {

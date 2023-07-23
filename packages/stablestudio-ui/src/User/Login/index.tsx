@@ -35,7 +35,8 @@ const Login = () => {
       console.error(e);
     });
     if (resp) {
-      navigate("/generate");
+      window.location.reload();
+      // navigate("/generate");
     }
   };
 

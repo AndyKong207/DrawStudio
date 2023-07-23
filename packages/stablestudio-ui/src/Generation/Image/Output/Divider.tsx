@@ -21,7 +21,7 @@ export function Divider({ dateTime }: { dateTime?: Date }) {
 
       const formatted =
         duration.days ?? 0 > 0
-          ? format(dateTime, "LLL d, p")
+          ? format(dateTime, "MM月dd日 SS:mm")
           : formatDistance(dateTime, new Date(), { addSuffix: true });
 
       return formatted.replace("about ", "");
