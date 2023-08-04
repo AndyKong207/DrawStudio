@@ -21,7 +21,6 @@ const Login = () => {
 
   const handleSendCode = async () => {
     const captchaResp: any = await captcha();
-    // console.log(captchaResp);
     const resp = true;
     await sendSms({
       ...captchaResp, // 即 ticket, randstr
@@ -46,7 +45,6 @@ const Login = () => {
   const handleLogin = async () => {
     setLoading(true);
     const captchaResp: any = await captcha();
-    console.log(captchaResp);
     const resp = await loginSms({
       ...captchaResp, // 即 ticket, randstr
       phone,

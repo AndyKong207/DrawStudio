@@ -25,9 +25,7 @@ const Login = () => {
 
   const handleRegister = async () => {
     setLoading(true);
-    console.log(email);
     const captchaResp: any = await captcha();
-    console.log(captchaResp);
     const resp = await signup({
       ...captchaResp, // 即 ticket, randstr
       email,

@@ -38,7 +38,6 @@ export function Settings() {
           status.then(setPluginStatus);
         } else {
           setPluginStatus(status);
-          console.log(status);
         }
       }
     }

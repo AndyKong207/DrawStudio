@@ -10,7 +10,6 @@ export function BottomBar() {
   const createDream = Generation.Image.Session.useCreateDream();
   const tabRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  console.log("BottomBar");
 
   useClickAway(tabRef, () => setOpen(false));
 

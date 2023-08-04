@@ -85,8 +85,37 @@ export namespace Size {
   export namespace Bounds {
     export const get = (input: Generation.Image.Input) => {
       if (!input?.model) return undefined;
+      // https://platform.stability.ai/docs/api-reference#tag/v1generation/operation/textToImage
+      // For SDXL v0.9: valid dimensions are 1024x1024, 1152x896, 1216x832, 1344x768, 1536x640, 640x1536, 768x1344, 832x1216, or 896x1152
+      // For SDXL v1.0: valid dimensions are the same as SDXL v0.9
+      if (input.model === "stable-diffusion-xl-1024-v1-0") {
+        return {
+          length: {
+            min: 1024,
+            max: 1024,
+          },
 
-      if (input.model.includes("xl")) {
+          area: {
+            min: 1024 * 1024,
+            max: 1024 * 1024,
+          },
+
+          ratio: {
+            min: 1,
+            max: 1,
+          },
+
+          width: {
+            min: 1024,
+            max: 1024,
+          },
+
+          height: {
+            min: 1024,
+            max: 1024,
+          },
+        };
+      } else if (input.model.includes("xl")) {
         return {
           length: {
             min: 512,

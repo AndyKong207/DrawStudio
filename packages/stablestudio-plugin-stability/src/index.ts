@@ -147,8 +147,6 @@ export const createPlugin = StableStudio.createPlugin<{
           );
         }
 
-        console.log(input.sampler.id ? parseInt(input.sampler.id) : 0);
-
         const imageParams = Generation.ImageParameters.create({
           width: BigInt(width),
           height: BigInt(height),

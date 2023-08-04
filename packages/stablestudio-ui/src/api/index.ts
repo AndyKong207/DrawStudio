@@ -6,13 +6,9 @@ import axios, {
   InternalAxiosRequestConfig,
 } from "axios";
 
-import { ResultEnum } from "~/enums/httpEnum";
-
-import { checkStatus } from "./helper/checkStatus";
+import { notify } from "../utils/noti";
 
 import { ResultData } from "./interface";
-
-const LOGIN_URL = "/signin";
 
 export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   noLoading?: boolean;
@@ -21,7 +17,7 @@ export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 const config = {
   // 默认地址请求地址，可在 .env.** 文件中修改
   // 设置超时时间
-  timeout: ResultEnum.TIMEOUT as number,
+  timeout: 60_000,
   // 跨域时候允许携带凭证
   withCredentials: true,
 };
@@ -59,36 +55,20 @@ class RequestHttp {
     this.service.interceptors.response.use(
       (response: AxiosResponse) => {
         const { data } = response;
-        // const userStore = useUserStore();
-        // tryHideFullScreenLoading();
-        // 登陆失效
-        if (data.code == ResultEnum.OVERDUE) {
-          // userStore.setToken("");
-          // router.replace(LOGIN_URL);
-          // console.error(data.msg);
-          window.location.href = LOGIN_URL;
-          return Promise.reject(data);
-        }
-        // 全局错误信息拦截（防止下载文件的时候返回数据流，没有 code 直接报错）
-        if (data.code && data.code !== ResultEnum.SUCCESS) {
-          console.error(data.msg);
-          return Promise.reject(data);
-        }
-        // 成功请求（在页面上除非特殊情况，否则不用处理失败逻辑）
         return data;
       },
       async (error: AxiosError) => {
-        const { response } = error;
-        // tryHideFullScreenLoading();
-        // 请求超时 && 网络错误单独判断，没有 response
-        if (error.message.indexOf("timeout") !== -1)
-          console.error("请求超时！请您稍后重试");
-        if (error.message.indexOf("Network Error") !== -1)
-          console.error("网络错误！请您稍后重试");
-        // 根据服务器响应的错误状态码，做不同的处理
-        if (response) checkStatus(response.status);
-        // 服务器结果都没有返回(可能服务器错误可能客户端断网)，断网处理:可以跳转到断网页面
-        if (!window.navigator.onLine) window.location.href = LOGIN_URL;
+        const message = error?.response?.data;
+        if (message === "请先登录") {
+          window.location.href = "/draw-studio/signin";
+        }
+        message && notify(String(message));
+        if (error.message.includes("timeout")) {
+          notify("请求超时！请您稍后重试");
+        } else if (error.message.includes("Network Error")) {
+          notify("网络错误！请您稍后重试");
+        }
+
         return Promise.reject(error);
       }
     );

@@ -65,7 +65,7 @@ export namespace StableDiffusionV1 {
         init: null,
         extras: {
           $IPC: {
-            preset: "enhance",
+            preset: "none",
           },
         },
       };
@@ -74,6 +74,7 @@ export namespace StableDiffusionV1 {
 
   export type Output = { objectURL: string };
 
+  // todo show price
   export const price = (input: Input): number => {
     if (Generation.Image.Input.isUpscaling(input)) return 0.2;
 

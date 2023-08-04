@@ -23,9 +23,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     setLoading(true);
-    console.log(email);
     const captchaResp: any = await captcha();
-    console.log(captchaResp);
     const resp = await loginApi({
       ...captchaResp, // 即 ticket, randstr
       email,

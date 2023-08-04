@@ -15,6 +15,8 @@ export function Ratio({
   toggleFullControl?: () => void;
 }) {
   const { input } = Generation.Image.Input.use(id);
+  // todo set ratios for v1.0
+  // valid dimensions are 1024x1024, 1152x896, 1216x832, 1344x768, 1536x640, 640x1536, 768x1344, 832x1216, or 896x1152
   const { closest, ratios } = Ratios.use(id, fullControl);
   const [timer, setTimer] = React.useState<NodeJS.Timeout | null>(null);
   const [forceTooltipOpen, setForceTooltipOpen] = React.useState(false);

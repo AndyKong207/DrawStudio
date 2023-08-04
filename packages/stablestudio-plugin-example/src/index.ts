@@ -1,5 +1,6 @@
 import * as StableStudio from "@stability/stablestudio-plugin";
-import axios from "axios";
+
+import http from "../../stablestudio-ui/src/api";
 
 export const createPlugin = StableStudio.createPlugin<{
   imagesGeneratedSoFar: number;
@@ -33,8 +34,8 @@ export const createPlugin = StableStudio.createPlugin<{
     ],
 
     model: "stable-diffusion-xl-beta-v2-2-2",
-    sampler: { id: "0", name: "DDIM" },
-    style: "enhance",
+    sampler: { id: "auto", name: "自动选择" },
+    style: "none",
 
     width: 512,
     height: 512,
@@ -46,12 +47,12 @@ export const createPlugin = StableStudio.createPlugin<{
   getStableDiffusionModels: () => {
     return [
       {
-        id: "SDXL",
-        name: "SDXL",
+        id: "stable-diffusion-xl-beta-v2-2-2",
+        name: "SDXL Beta",
       },
       {
-        id: "SDxl-v0-9",
-        name: "SDxl-v0-9",
+        id: "stable-diffusion-xl-1024-v1-0",
+        name: "Stable Diffusion XL v1.0",
       },
       {
         id: "inpainting-v2-0",
@@ -60,21 +61,18 @@ export const createPlugin = StableStudio.createPlugin<{
     ];
   },
 
-  // todo
-  //sampler 表示采样器，可不填，可选值为以下之一
-  // DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
   getStableDiffusionSamplers: () => [
-    { id: "0", name: "DDIM" },
-    { id: "1", name: "DDPM" },
-    { id: "2", name: "K Euler" },
-    { id: "3", name: "K Euler Ancestral" },
-    { id: "4", name: "K Heun" },
-    { id: "5", name: "K DPM 2" },
-    { id: "6", name: "K DPM 2 Ancestral" },
-    { id: "7", name: "K LMS" },
-    { id: "8", name: "K DPM++ 2S Ancestral" },
-    { id: "9", name: "K DPM++ 2M" },
-    { id: "10", name: "K DPM++ SDE" },
+    { id: "auto", name: "自动选择" },
+    { id: "DDIM", name: "DDIM" },
+    { id: "DDPM", name: "DDPM" },
+    { id: "K_EULER", name: "K Euler" },
+    { id: "K_EULER_ANCESTRAL", name: "K Euler Ancestral" },
+    { id: "K_HEUN", name: "K Heun" },
+    { id: "K_DPM_2", name: "K DPM 2" },
+    { id: "K_DPM_2_ANCESTRAL", name: "K DPM 2 Ancestral" },
+    { id: "K_LMS", name: "K LMS" },
+    { id: "K_DPMPP_2S_ANCESTRAL", name: "K DPM++ 2S Ancestral" },
+    { id: "K_DPMPP_2M", name: "K DPM++ 2M" },
   ],
 
   getStableDiffusionStyles: () => [
@@ -187,7 +185,7 @@ export const createPlugin = StableStudio.createPlugin<{
     await Promise.all(
       imageIDs.map((v) => {
         const [pid, small] = v.split("|");
-        return axios.post("/api/draw/remove-img", { small, pid });
+        return http.post("/api/draw/remove-img", { small, pid });
       })
     );
   },
@@ -203,11 +201,12 @@ export const createPlugin = StableStudio.createPlugin<{
 
     const { initialImage, style, maskImage, height, width } =
       options?.input ?? {};
-
     const form = new FormData();
-
+    const engine = options?.input?.model;
+    if (engine) form.append("engine", engine);
     if (height) form.append("height", String(height));
     if (width) form.append("width", String(width));
+    // console.log({ engine, height, width });
 
     // img 可选，类型是[File](https://developer.mozilla.org/en-US/docs/Web/API/File), 表示用户上传的底图
     if (initialImage?.blob) {
@@ -267,16 +266,9 @@ export const createPlugin = StableStudio.createPlugin<{
 
     //sampler 表示采样器，可不填，可选值为以下之一
     // DDIM DDPM K_DPMPP_2M K_DPMPP_2S_ANCESTRAL K_DPM_2 K_DPM_2_ANCESTRAL K_EULER K_EULER_ANCESTRAL K_HEUN K_LMS
-    if (options?.input?.sampler?.name) {
-      form.append("sampler", options?.input?.sampler?.name);
-    }
-
-    // engine表示作图引擎，可选值为下面三个，默认值为第一个
-    // stable-diffusion-xl-beta-v2-2-2
-    // stable-diffusion-xl-1024-v0-9
-    // stable-inpainting-512-v2-0
-    if (options?.input?.model) {
-      form.append("engine", options?.input?.model);
+    const sampler = options?.input?.sampler?.id;
+    if (sampler && sampler !== "auto") {
+      form.append("sampler", sampler);
     }
 
     const prompt_strength = Number(options?.input?.cfgScale);
@@ -284,13 +276,9 @@ export const createPlugin = StableStudio.createPlugin<{
       form.append("prompt_strength", String(prompt_strength));
     }
 
-    const resp = await axios.post("/api/draw/create", form);
+    const responseData: any = await http.post("/api/draw/create", form);
 
     const images = [];
-    let responseData = {} as any;
-    if (resp && resp.status === 200) {
-      responseData = resp.data;
-    }
     if (responseData) {
       const {
         imgs,
@@ -372,14 +360,10 @@ export const createPlugin = StableStudio.createPlugin<{
   },
 
   getStableDiffusionExistingImages: async (options) => {
-    const resp = await axios.post("/api/draw/list-studio", {
+    const responseData: any = await http.post("/api/draw/list-studio", {
       ...options,
     });
     const images = [];
-    let responseData = {} as any;
-    if (resp && resp.status === 200) {
-      responseData = resp.data;
-    }
     if (responseData) {
       const {
         imgs,
