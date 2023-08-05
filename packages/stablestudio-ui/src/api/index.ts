@@ -59,9 +59,9 @@ class RequestHttp {
       },
       async (error: AxiosError) => {
         const message = error?.response?.data;
-        if (message === "请先登录") {
-          window.location.href = "/draw-studio/signin";
-        }
+        // if (message === "请先登录") {
+        //   window.location.href = "/draw-studio/signin";
+        // }
         message && notify(String(message));
         if (error.message.includes("timeout")) {
           notify("请求超时！请您稍后重试");

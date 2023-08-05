@@ -276,7 +276,14 @@ export const createPlugin = StableStudio.createPlugin<{
       form.append("prompt_strength", String(prompt_strength));
     }
 
-    const responseData: any = await http.post("/api/draw/create", form);
+    let responseData: any;
+    try {
+      responseData = await http.post("/api/draw/create", form);
+    } catch (e: any) {
+      if (e.response?.data === "请先登录") {
+        window.location.href = "/draw-studio/signin";
+      }
+    }
 
     const images = [];
     if (responseData) {
