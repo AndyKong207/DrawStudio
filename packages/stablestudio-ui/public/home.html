@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <link rel="icon" type="image/svg+xml" href="./draw-studio/favicon.svg" />
     
-    <script src="./draw-studio/tailwindcss.js"></script>
+    <script src="https://draw-1304100014.cos.ap-shanghai.myqcloud.com/draw.js/tailwindcss.js"></script>
     <script src="./draw-studio/countUp.js"></script>
   </head>
   <body class="bg-slate-100">
@@ -89,10 +89,9 @@
       chats.start()
       tokens.start()
 
-      window.onload = function () {
-        fetchData()
-        setInterval(fetchData, 5000);
-      }
+      fetchData()
+      setInterval(fetchData, 5000);
+      
       function fetchData () {
         fetch('/api/user/sum', {
           method: 'POST'
