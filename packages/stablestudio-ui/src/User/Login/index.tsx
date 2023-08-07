@@ -54,8 +54,7 @@ const Login = () => {
     <div className="flex h-screen w-screen items-center justify-center bg-violet-950">
       <div className="h-[320px] w-[400px] rounded-lg p-6 shadow-lg dark:bg-zinc-800">
         <div className="mb-4 flex-col items-center justify-center text-center">
-          <div className="text-2xl">欢迎</div>
-          <div>登录DrawStudio</div>
+          <div className="text-2xl">欢迎登录</div>
         </div>
         <Theme.Input
           value={email}

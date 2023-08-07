@@ -78,7 +78,9 @@ const Account = () => {
             </a>
             <a
               className="text-brand-600 dark:text-brand-400 text-right font-medium hover:underline"
-              href="/prompt-guide"
+              href="https://draw-1304100014.cos.ap-shanghai.myqcloud.com/user_guide/user_guide.pdf"
+              target="_blank"
+              rel="noreferrer"
             >
               使用向导
             </a>
