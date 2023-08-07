@@ -282,6 +282,8 @@ export const createPlugin = StableStudio.createPlugin<{
     } catch (e: any) {
       if (e.response?.data === "请先登录") {
         window.location.href = "/draw-studio/signin";
+      } else if (e.response?.data === "请先绑定手机号") {
+        window.open("/bind");
       }
     }
 

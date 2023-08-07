@@ -21,7 +21,7 @@ const Account = () => {
     Cookies.remove("banruo");
     const resp = await logout();
     if (resp) {
-      navigate("/signin");
+      window.location.href = "/signin";
     }
   };
 
