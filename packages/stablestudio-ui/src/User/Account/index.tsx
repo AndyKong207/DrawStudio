@@ -21,7 +21,7 @@ const Account = () => {
     Cookies.remove("banruo");
     const resp = await logout();
     if (resp) {
-      window.location.href = "/signin";
+      window.location.href = "/draw-studio/signin";
     }
   };
 
