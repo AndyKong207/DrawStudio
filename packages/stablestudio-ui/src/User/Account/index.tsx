@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import Cookies from "js-cookie";
 import { logout } from "~/api/modules/user";
 import { Router } from "~/Router";
@@ -6,7 +7,7 @@ import { Theme } from "~/Theme";
 const Account = () => {
   const navigate = Router.useNavigate();
   const [userInfo, setUserInfo] = useState<any>();
-  const [money, setMoney] = useState<string>();
+  const [money, setMoney] = useState<string>("10");
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem("user") as string));
   }, []);
@@ -94,9 +95,11 @@ const Account = () => {
               </h5>
             </div>
             <div className="flex flex-row items-end justify-between">
-              <span className="text-brand-400 text-3xl font-bold">867.3</span>
+              <span className="text-brand-400 text-3xl font-bold">
+                {userInfo?.credit}
+              </span>
               <div className="opacity-muted flex text-xs tracking-wide">
-                ~4,336 images
+                ~4,336 张图片
               </div>
             </div>
             <hr className="mb-4 mt-3 h-px border-0 bg-neutral-200 dark:bg-white/5"></hr>
@@ -119,14 +122,14 @@ const Account = () => {
                     </div>
                     <button className="bg-brand-500 shadow-brand-500-md dark:bg-brand-600 dark:hover:bg-brand-500 border-brand-500 dark:border-brand-600 group relative flex h-fit w-fit cursor-pointer select-none flex-row items-center justify-center gap-0 whitespace-nowrap rounded rounded-l-none rounded-r-sm px-3 py-1.5 pr-4 align-middle text-sm font-light text-white opacity-100 shadow-md duration-100 dark:shadow-none">
                       <div className="-ml-1 mr-1 h-6 w-0 shrink origin-center p-0.5 opacity-75 duration-100 group-hover:opacity-100"></div>
-                      Buy
+                      购买
                       <div className="absolute bottom-0 right-2 top-0 flex items-center justify-center"></div>
                     </button>
                   </div>
                   <div className="ml-auto flex flex-col items-end">
-                    1,000&nbsp;credits
+                    1,000&nbsp;魔力值
                     <div className="opacity-muted flex text-xs tracking-wide">
-                      ~5,000 images
+                      ~5,000 张图片
                     </div>
                   </div>
                 </div>
@@ -151,7 +154,7 @@ const Account = () => {
               <tbody>
                 <tr>
                   <td className="whitespace-nowrap pt-3">
-                    06/18/23, 07:59:23 PM
+                    {format(new Date(), "yyyy年MM月dd日 SS:mm")}
                   </td>
                   <td className="pt-3">1,000</td>
                 </tr>

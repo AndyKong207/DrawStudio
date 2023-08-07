@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import { check, getUserInfo } from "~/api/modules/user";
-import { GlobalState } from "~/GlobalState";
+// import { GlobalState } from "~/GlobalState";
 import { Router } from "~/Router";
 import { Shortcut } from "~/Shortcut";
 import { Theme } from "~/Theme";
 
+import { Feedback } from "./Feedback";
+
 export const Right = () => {
-  const { setIsOpen } = Shortcut.Palette.use();
+  // const { setIsOpen } = Shortcut.Palette.use();
+  const { setIsOpen } = Feedback.use();
   const isMobileDevice = Theme.useIsMobileDevice();
-  const apiKey = localStorage.getItem("stability-apiKey");
+  // const apiKey = localStorage.getItem("stability-apiKey");
   const navigate = Router.useNavigate();
 
   const [userInfo, setUserInfo] = useState<any>();
@@ -47,6 +50,23 @@ export const Right = () => {
             <Shortcut.Keys keys={["Meta", "k"]} className="ml-2" />
           </Theme.Button>
         )} */}
+        <Theme.Button
+          outline
+          className="rounded-full"
+          icon={Theme.Icon.Dices}
+          onClick={() => (window.location.href = "https://124.222.198.28")}
+        >
+          语言AI
+        </Theme.Button>
+        <Theme.Button
+          outline
+          className="rounded-full"
+          icon={Theme.Icon.Star}
+          onClick={() => setIsOpen(true)}
+        >
+          反馈/抖音
+        </Theme.Button>
+        <Feedback />
         {userInfo ? (
           <Link to="/account">
             <div className="flex aspect-square h-full items-center justify-center rounded-full bg-gray-400 text-xl">
