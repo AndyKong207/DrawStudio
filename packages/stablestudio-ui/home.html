@@ -12,19 +12,22 @@
   </head>
   <body>
     <div class="h-screen w-screen overflow-y-auto bg-slate-100 text-black">
-      <div class="flex items-center space-x-2 px-12 py-4">
-        <img class="w-12" src="/draw-studio/pineapple.png" alt="">
+      <div class="flex items-center space-x-2 p-4">
+        <img class="w-9" src="/draw-studio/pineapple.png" alt="">
         <span class="text-lg font-bold">般若AI</span>
       </div>
-      <div class="mx-auto flex max-w-[70rem] flex-col">
-        <span class="mb-10 mt-10 text-center text-4xl font-bold text-[#9013fe]">
+      <div class="mx-auto flex max-w-[70rem] flex-col p-4">
+        <!-- <span class="mb-10 mt-10 text-center text-4xl font-bold text-[#9013fe]">
           选择您要使用的功能
-        </span>
+        </span> -->
         <div class="flex flex-wrap justify-around">
-          <div class=" mb-4 flex w-[500px] flex-col items-center rounded-lg bg-white p-8 shadow-md">
+          <div class="mb-4 flex w-[500px] h-[310px] flex-col items-center rounded-lg bg-white p-8 shadow-md">
             <div class="mb-4 text-xl font-bold">AI绘画</div>
-            <ul class=" mb-4 list-disc space-y-3 flex-1">
+            <ul class="mb-4 space-y-3 flex-1 flex-col items-center text-center">
               <li>强大的AI绘画功能</li>
+              <li>文字生成图片/以图生图</li>
+              <li>图片局部重绘/高清修复</li>
+              <li>支持多种图像渲染风格</li>
             </ul>
             <button
               class="rounded px-4 py-2 text-base text-white bg-purple-500"
@@ -33,9 +36,9 @@
               免费使用
             </button>
           </div>
-          <div class=" flex w-[500px] flex-col items-center rounded-lg bg-white p-8 shadow-md">
+          <div class="flex w-[500px] h-[310px] flex-col items-center rounded-lg bg-white p-8 shadow-md">
             <div class="mb-4 text-xl font-bold">语言AI大模型</div>
-            <ul class=" mb-4 list-disc space-y-3">
+            <ul class="mb-4 space-y-3 flex-1 flex-col items-center text-center">
               <li>撰写邮件/文案/合同；编写/解释/重构代码</li>
               <li>修正语法，润色文字；概括论文，总结主题</li>
               <li>支持富文本格式，绘制图表（流程图/思维导图等）</li>
