@@ -11,7 +11,13 @@ export function App() {
   const isMobileDevice = Theme.useIsMobileDevice();
   const [isShowTopBar, setIsShowTopBar] = useState(true);
   useEffect(() => {
-    const paths = ["/signin", "/signin-sms", "/signup", "/reset-password"];
+    const paths = [
+      "/draw-studio/index",
+      "/draw-studio/signin",
+      "/draw-studio/signin-sms",
+      "/draw-studio/signup",
+      "/draw-studio/reset-password",
+    ];
     setIsShowTopBar(!paths.includes(window.location.pathname));
   }, []);
 

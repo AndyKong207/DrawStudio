@@ -2,6 +2,7 @@ import * as ReactRouter from "react-router-dom";
 
 import { Editor } from "~/Editor";
 import { Generation } from "~/Generation";
+import Home from "~/Home";
 import { Plugin } from "~/Plugin";
 import { Settings } from "~/Settings";
 import Account from "~/User/Account";
@@ -39,6 +40,10 @@ export namespace Router {
       return useMemo(
         () =>
           [
+            {
+              path: "/index",
+              element: <Home />,
+            },
             {
               path: "/signin",
               element: <Login />,
