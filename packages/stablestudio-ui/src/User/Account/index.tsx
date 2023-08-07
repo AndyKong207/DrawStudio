@@ -12,6 +12,10 @@ const Account = () => {
     setUserInfo(JSON.parse(localStorage.getItem("user") as string));
   }, []);
 
+  const handleBindPhone = async () => {
+    window.open("/bind");
+  };
+
   const handleLogout = async () => {
     Cookies.remove("banruo.sig");
     Cookies.remove("banruo");
@@ -30,10 +34,8 @@ const Account = () => {
       <div className="mx-auto flex max-w-[70rem] flex-col gap-8">
         <div className="flex flex-col gap-10">
           <div>
-            <h1 className="text-3xl">Account</h1>
-            <h2 className="opacity-75">
-              Manage your account and billing information
-            </h2>
+            <h1 className="text-3xl">个人账户</h1>
+            <h2 className="opacity-75">管理你的账户和账单信息</h2>
           </div>
         </div>
         <div className="flex justify-between">
@@ -59,51 +61,45 @@ const Account = () => {
             </div>
           </div>
           <div className="flex h-full flex-col justify-between gap-2 ">
+            {userInfo?.phone ? null : (
+              <a
+                className="text-brand-600 dark:text-brand-400 cursor-pointer text-right font-medium hover:underline"
+                onClick={handleBindPhone}
+              >
+                绑定手机号
+              </a>
+            )}
             <a
               className="text-brand-600 dark:text-brand-400 cursor-pointer text-right font-medium hover:underline"
               onClick={handleLogout}
             >
-              Log out
-            </a>
-            <a
-              className="text-brand-600 dark:text-brand-400 text-right font-medium hover:underline"
-              href="/support"
-            >
-              Contact us
-            </a>
-            <a
-              href="https://platform.stability.ai/docs/getting-started/credits-and-billing"
-              className="text-brand-600 dark:text-brand-400 text-right font-medium hover:underline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Billing guide
+              退出登录
             </a>
             <a
               className="text-brand-600 dark:text-brand-400 text-right font-medium hover:underline"
               href="/prompt-guide"
             >
-              Prompt guide
+              使用向导
             </a>
           </div>
         </div>
-        <div className="flex flex-wrap gap-4">
-          <div className="flex h-fit flex-col rounded border border-zinc-700 bg-zinc-800 p-5">
+        <div className="flex flex-wrap">
+          <div className="flex h-fit flex-1 flex-col rounded border border-zinc-700 bg-zinc-800 p-5">
             <div className="flex items-start">
               <h5 className="mb-3.5 text-xl font-semibold text-neutral-900 dark:text-white">
-                魔力值
+                剩余魔力值
               </h5>
             </div>
             <div className="flex flex-row items-end justify-between">
               <span className="text-brand-400 text-3xl font-bold">
                 {userInfo?.credit}
               </span>
-              <div className="opacity-muted flex text-xs tracking-wide">
+              {/* <div className="opacity-muted flex text-xs tracking-wide">
                 ~4,336 张图片
-              </div>
+              </div> */}
             </div>
-            <hr className="mb-4 mt-3 h-px border-0 bg-neutral-200 dark:bg-white/5"></hr>
-            <div className="flex flex-col gap-4">
+            {/* <hr className="mb-4 mt-3 h-px border-0 bg-neutral-200 dark:bg-white/5"></hr> */}
+            {/* <div className="flex flex-col gap-4">
               <div className="flex flex-col gap-3">
                 <h1>购买魔力值</h1>
                 <div className="flex flex-col gap-2">
@@ -134,9 +130,9 @@ const Account = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
-          <div className="h-fit grow overflow-x-auto rounded border border-zinc-700 bg-zinc-800 p-5">
+          {/* <div className="h-fit grow overflow-x-auto rounded border border-zinc-700 bg-zinc-800 p-5">
             <table className="w-full text-left text-sm text-neutral-500 dark:text-neutral-400">
               <caption className="mb-4 text-left text-lg font-semibold text-neutral-900 dark:text-white">
                 购买记录
@@ -160,7 +156,7 @@ const Account = () => {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

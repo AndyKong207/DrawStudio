@@ -41,7 +41,7 @@ export function Button({
             noBg
           />
           <Generation.Image.Controls.Button
-            name="Cancel"
+            name="取消"
             onClick={() => setDeleteConfirming(false)}
             icon={(props) => (
               <Theme.Icon.X

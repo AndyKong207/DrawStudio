@@ -47,7 +47,7 @@ export function Modal() {
           <div className="flex flex-col gap-3 p-2">
             <div className="flex items-center justify-between">
               <div className="flex flex-col gap-1">
-                <Theme.Label className="mb-0 ml-0">File name</Theme.Label>
+                <Theme.Label className="mb-0 ml-0">文件名</Theme.Label>
                 <Theme.Input
                   fullWidth
                   onFocus={(e) => {
@@ -65,7 +65,7 @@ export function Modal() {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <Theme.Label className="mb-0 ml-0">高清</Theme.Label>
+                <Theme.Label className="mb-0 ml-0">高清修复</Theme.Label>
                 <Theme.Dropdown
                   fullWidth
                   className="mx-0"

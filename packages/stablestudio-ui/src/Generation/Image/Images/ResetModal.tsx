@@ -19,7 +19,7 @@ export function ResetModal({
         <Theme.Modal.Actions
           actions={[
             {
-              label: "Cancel",
+              label: "取消",
               onClick: onClose,
               size: "lg",
             },

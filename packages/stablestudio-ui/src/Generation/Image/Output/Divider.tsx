@@ -1,5 +1,5 @@
 import { format, formatDistance, intervalToDuration } from "date-fns";
-
+import { zhCN } from "date-fns/locale";
 import { Theme } from "~/Theme";
 
 export function Divider({ dateTime }: { dateTime?: Date }) {
@@ -22,7 +22,10 @@ export function Divider({ dateTime }: { dateTime?: Date }) {
       const formatted =
         duration.days ?? 0 > 0
           ? format(dateTime, "MM月dd日 SS:mm")
-          : formatDistance(dateTime, new Date(), { addSuffix: true });
+          : formatDistance(dateTime, new Date(), {
+              addSuffix: true,
+              locale: zhCN,
+            });
 
       return formatted.replace("about ", "");
     };

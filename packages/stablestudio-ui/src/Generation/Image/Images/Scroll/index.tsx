@@ -85,7 +85,7 @@ export function Scroll({
             exit={{ opacity: 0 }}
           >
             <Theme.Icon.ChevronDown size={18} className="-mr-1" />
-            <h1>Scroll back</h1>
+            <h1>返回</h1>
           </motion.div>
         </div>
       )}

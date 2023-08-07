@@ -62,7 +62,7 @@ export function Pagination({ id }: { id: ID }) {
                 size="lg"
                 onClick={() => current?.src && onChoose(current)}
               >
-                Select
+                选择
               </Theme.Button>
               <Theme.Button
                 translucent
@@ -70,7 +70,7 @@ export function Pagination({ id }: { id: ID }) {
                 size="lg"
                 onClick={onCancel}
               >
-                Cancel
+                取消
               </Theme.Button>
 
               <div className="w-px grow bg-zinc-700" />

@@ -53,18 +53,22 @@ export const Right = () => {
         <Theme.Button
           outline
           className="rounded-full"
-          icon={Theme.Icon.Dices}
-          onClick={() => (window.location.href = "https://124.222.198.28")}
+          onClick={() => window.open("/chat")}
         >
-          语言AI
+          <div className="flex items-center space-x-2">
+            <img className="h-5 w-5" src="./message.png" alt="" />
+            <span>语言AI</span>
+          </div>
         </Theme.Button>
         <Theme.Button
           outline
           className="rounded-full"
-          icon={Theme.Icon.Star}
           onClick={() => setIsOpen(true)}
         >
-          反馈/抖音
+          <div className="flex items-center space-x-2">
+            <img className="h-5 w-5" src="./tiktok.png" alt="" />
+            <span>反馈/抖音</span>
+          </div>
         </Theme.Button>
         <Feedback />
         {userInfo ? (
