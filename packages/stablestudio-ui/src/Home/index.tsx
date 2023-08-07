@@ -4,18 +4,36 @@ import { Theme } from "~/Theme";
 import { Logo } from "~/Theme/Logo";
 
 const Home = () => {
+  const [isFirstReq, setIsFirstReq] = useState(true); // 是否是第一次请求
   const [sumData, setSumData] = useState<{ users: number; chats: number }>({
     users: 0,
     chats: 0,
   });
 
+  const [newSumData, setNewSumData] = useState<{
+    users: number;
+    chats: number;
+  }>({
+    users: 0,
+    chats: 0,
+  });
+
+  const timerRef = useRef<any>();
+
   useEffect(() => {
     fetchData();
+    timerRef.current = setInterval(() => {
+      fetchData(false);
+    }, 5000);
+    return () => {
+      clearInterval(timerRef.current);
+    };
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = async (isFirst = true) => {
+    setIsFirstReq(isFirst);
     const resp = await getSum();
-    setSumData(resp as any);
+    isFirst ? setSumData(resp as any) : setNewSumData(resp as any);
   };
 
   const handleToGenerate = () => {
@@ -28,7 +46,7 @@ const Home = () => {
   };
 
   return (
-    <div className="h-full w-full bg-slate-100 text-black">
+    <div className="h-screen w-full overflow-y-auto bg-slate-100 text-black">
       <div className="flex items-center space-x-2 px-12 py-4">
         <Logo />
         <span className="text-lg font-bold text-[#9013fe]">般若AI</span>
@@ -75,13 +93,21 @@ const Home = () => {
             <span className="text-2xl font-normal text-gray-500">
               已服务用户
             </span>
-            <CountUp start={0} end={sumData?.users} />
+            {isFirstReq ? (
+              <CountUp start={0} end={sumData?.users} />
+            ) : (
+              <CountUp start={sumData?.users} end={newSumData?.users} />
+            )}
           </div>
           <div className="flex min-w-[400px] shrink-0 flex-nowrap items-baseline justify-center space-x-2">
             <span className="text-2xl font-normal text-gray-500">
               已处理文字
             </span>
-            <CountUp start={0} end={sumData?.chats} />
+            {isFirstReq ? (
+              <CountUp start={0} end={sumData?.chats} />
+            ) : (
+              <CountUp start={sumData?.chats} end={newSumData?.chats} />
+            )}
           </div>
         </div>
       </div>
