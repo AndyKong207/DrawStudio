@@ -5,17 +5,24 @@ import { Logo } from "~/Theme/Logo";
 
 const Home = () => {
   const [isFirstReq, setIsFirstReq] = useState(true); // 是否是第一次请求
-  const [sumData, setSumData] = useState<{ users: number; chats: number }>({
+  const [sumData, setSumData] = useState<{
+    users: number;
+    chats: number;
+    tokens: string;
+  }>({
     users: 0,
     chats: 0,
+    tokens: "",
   });
 
   const [newSumData, setNewSumData] = useState<{
     users: number;
     chats: number;
+    tokens: string;
   }>({
     users: 0,
     chats: 0,
+    tokens: "",
   });
 
   const timerRef = useRef<any>();
@@ -104,9 +111,12 @@ const Home = () => {
               已处理文字
             </span>
             {isFirstReq ? (
-              <CountUp start={0} end={sumData?.chats} />
+              <CountUp start={0} end={Number(sumData?.tokens)} />
             ) : (
-              <CountUp start={sumData?.chats} end={newSumData?.chats} />
+              <CountUp
+                start={Number(sumData?.tokens)}
+                end={Number(newSumData?.tokens)}
+              />
             )}
           </div>
         </div>
