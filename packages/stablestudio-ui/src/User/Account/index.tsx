@@ -35,7 +35,7 @@ const Account = () => {
         <div className="flex flex-col gap-10">
           <div>
             <h1 className="text-3xl">个人账户</h1>
-            <h2 className="opacity-75">管理你的账户和账单信息</h2>
+            <h2 className="opacity-75">管理您的账户</h2>
           </div>
         </div>
         <div className="flex justify-between">
