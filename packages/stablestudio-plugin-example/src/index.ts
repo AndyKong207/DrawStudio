@@ -191,10 +191,6 @@ export const createPlugin = StableStudio.createPlugin<{
   },
 
   createStableDiffusionImages: async (options) => {
-    console.log(
-      "🚀 ~ file: index.ts:172 ~ createStableDiffusionImages: ~ options:",
-      options
-    );
     // const image = await fetch(`${window.location.origin}/DummyImage.png`);
     // const blob = await image.blob();
     // const createdAt = new Date();
@@ -283,7 +279,9 @@ export const createPlugin = StableStudio.createPlugin<{
       if (e.response?.data === "请先登录") {
         window.location.href = "/draw-studio/signin";
       } else if (e.response?.data === "请先绑定手机号") {
-        window.open("/bind");
+        setTimeout(() => {
+          window.location.href = "/draw-studio/account";
+        }, 1000);
       }
     }
 

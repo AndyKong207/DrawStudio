@@ -55,20 +55,21 @@ const Account = () => {
               <h5 className="text-2xl font-medium text-zinc-900 dark:text-white">
                 {userInfo?.email}
               </h5>
-              <span className="text-md text-zinc-500 dark:text-zinc-400">
-                {userInfo?.phone}
-              </span>
+              {userInfo?.phone ? (
+                <span className="text-md text-zinc-500 dark:text-zinc-400">
+                  {userInfo?.phone}
+                </span>
+              ) : (
+                <a
+                  className="cursor-pointer text-xl font-bold text-yellow-500 hover:underline"
+                  onClick={handleBindPhone}
+                >
+                  绑定手机号
+                </a>
+              )}
             </div>
           </div>
           <div className="flex h-full flex-col justify-between gap-2 ">
-            {userInfo?.phone ? null : (
-              <a
-                className="text-brand-600 dark:text-brand-400 cursor-pointer text-right font-medium hover:underline"
-                onClick={handleBindPhone}
-              >
-                绑定手机号
-              </a>
-            )}
             <a
               className="text-brand-600 dark:text-brand-400 cursor-pointer text-right font-medium hover:underline"
               onClick={handleLogout}
