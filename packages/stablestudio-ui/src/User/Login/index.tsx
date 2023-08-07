@@ -17,7 +17,7 @@ const Login = () => {
   const handleCheck = async () => {
     const resp = await check().catch(console.error);
     if (resp) {
-      navigate("/generate");
+      window.location.href = "/draw-studio/generate";
     }
   };
 

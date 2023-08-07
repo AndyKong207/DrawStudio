@@ -19,7 +19,7 @@ export function App() {
       "/draw-studio/reset-password",
     ];
     setIsShowTopBar(!paths.includes(window.location.pathname));
-  }, []);
+  }, [window.location.pathname]);
 
   if (window.location.pathname === "/") window.location.href = "/draw-studio";
 

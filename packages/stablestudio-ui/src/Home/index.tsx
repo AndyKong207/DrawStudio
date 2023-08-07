@@ -6,7 +6,8 @@ const Home = () => {
   const navigate = Router.useNavigate();
 
   const handleToGenerate = () => {
-    navigate("/generate");
+    // navigate("/generate");
+    window.location.href = "/draw-studio/generate";
   };
 
   const handleToGPT = () => {
