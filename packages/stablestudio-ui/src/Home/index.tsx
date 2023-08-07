@@ -1,9 +1,22 @@
-import { Router } from "~/Router";
+import CountUp from "react-countup";
+import { getSum } from "~/api/modules/user";
 import { Theme } from "~/Theme";
 import { Logo } from "~/Theme/Logo";
 
 const Home = () => {
-  const navigate = Router.useNavigate();
+  const [sumData, setSumData] = useState<{ users: number; chats: number }>({
+    users: 0,
+    chats: 0,
+  });
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const resp = await getSum();
+    setSumData(resp as any);
+  };
 
   const handleToGenerate = () => {
     // navigate("/generate");
@@ -24,8 +37,8 @@ const Home = () => {
         <span className="mb-10 mt-10 text-center text-4xl font-bold text-[#9013fe]">
           选择您要使用的功能
         </span>
-        <div className="flex flex-wrap justify-center space-x-8">
-          <div className=" flex w-[400px] flex-col items-center rounded-lg bg-white p-8 shadow-md">
+        <div className="flex flex-wrap justify-around">
+          <div className=" mb-4 flex w-[400px] flex-col items-center rounded-lg bg-white p-8 shadow-md">
             <div className="mb-4 text-xl font-bold">AI绘画</div>
             <ul className=" mb-4 list-disc space-y-3">
               <li>强大的AI绘画功能</li>
@@ -57,14 +70,18 @@ const Home = () => {
             </Theme.Button>
           </div>
         </div>
-        <div className="my-6 flex justify-center space-x-8 text-4xl font-bold">
-          <div>
-            <span>已服务用户：</span>
-            <span>1284513</span>
+        <div className="my-6 flex flex-wrap justify-around text-3xl font-bold">
+          <div className="flex min-w-[400px] shrink-0 flex-nowrap items-baseline justify-center space-x-2">
+            <span className="text-2xl font-normal text-gray-500">
+              已服务用户
+            </span>
+            <CountUp start={0} end={sumData?.users} />
           </div>
-          <div>
-            <span>已处理文字：</span>
-            <span>12313211231</span>
+          <div className="flex min-w-[400px] shrink-0 flex-nowrap items-baseline justify-center space-x-2">
+            <span className="text-2xl font-normal text-gray-500">
+              已处理文字
+            </span>
+            <CountUp start={0} end={sumData?.chats} />
           </div>
         </div>
       </div>

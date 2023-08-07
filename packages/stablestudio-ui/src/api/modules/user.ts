@@ -28,6 +28,9 @@ export const logout = () => {
 export const check = () => {
   return http.post("/api/user/check");
 };
+export const getSum = () => {
+  return http.post("/api/user/sum");
+};
 
 // captcha 是腾讯人机验证码前端校验方法，调用前先引入 <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
 // 这个方法返回的 ticket, randstr 参数，一些敏感接口（登录注册等）需要一并传入
