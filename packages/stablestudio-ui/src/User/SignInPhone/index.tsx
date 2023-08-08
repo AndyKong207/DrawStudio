@@ -1,15 +1,26 @@
 import { Link } from "react-router-dom";
-import { captcha, loginSms, sendSms } from "~/api/modules/user";
-import { Router } from "~/Router";
+import { captcha, check, loginSms, sendSms } from "~/api/modules/user";
+// import { Router } from "~/Router";
 import { Theme } from "~/Theme";
 
 const Login = () => {
   const [phone, setPhone] = useState("");
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const navigate = Router.useNavigate();
+  // const navigate = Router.useNavigate();
   const [counter, setCounter] = useState(60);
   const timer = useRef<any>();
+
+  useEffect(() => {
+    handleCheck();
+  }, []);
+
+  const handleCheck = async () => {
+    const resp = await check().catch(console.error);
+    if (resp) {
+      window.location.href = "/draw-studio/generate";
+    }
+  };
 
   const phoneChange = (value: string) => {
     setPhone(value);
@@ -54,7 +65,8 @@ const Login = () => {
       console.error(e);
     });
     if (resp) {
-      navigate("/generate");
+      // navigate("/generate");
+      window.location.reload();
     }
   };
 

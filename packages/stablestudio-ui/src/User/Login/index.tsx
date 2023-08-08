@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { captcha, check, loginApi } from "~/api/modules/user";
-import { Router } from "~/Router";
+// import { Router } from "~/Router";
 import { Theme } from "~/Theme";
 import { hash } from "~/utils";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = Router.useNavigate();
+  // const navigate = Router.useNavigate();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

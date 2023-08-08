@@ -21,6 +21,12 @@ export const loginSms = (params: Login.ReqLoginForm) => {
 export const signup = (params: Login.ReqLoginForm) => {
   return http.post("/api/user/signup", params);
 };
+export const bindPhone = (params: Login.ReqLoginForm) => {
+  return http.post("/api/user/bind", params);
+};
+export const unbindPhone = (params: Login.ReqLoginForm) => {
+  return http.post("/api/user/unbind", params);
+};
 
 export const logout = () => {
   return http.post("/api/user/logout");

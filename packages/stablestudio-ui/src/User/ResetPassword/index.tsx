@@ -32,7 +32,7 @@ const Login = () => {
           className="text-brand-400 mt-6 block text-center hover:underline"
           to="/signin"
         >
-          返回DrawStudio
+          返回
         </Link>
       </div>
     </div>

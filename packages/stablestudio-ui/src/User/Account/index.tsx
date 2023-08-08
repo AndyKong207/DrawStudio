@@ -1,19 +1,34 @@
-import { format } from "date-fns";
 import Cookies from "js-cookie";
 import { logout } from "~/api/modules/user";
-import { Router } from "~/Router";
-import { Theme } from "~/Theme";
+import { check, getUserInfo } from "~/api/modules/user";
+
+// import { Router } from "~/Router";
+// import { Theme } from "~/Theme";
+import { BindPhone } from "../BindPhone";
+import { UnbindPhone } from "../UnbindPhone";
 
 const Account = () => {
-  const navigate = Router.useNavigate();
+  // const navigate = Router.useNavigate();
   const [userInfo, setUserInfo] = useState<any>();
-  const [money, setMoney] = useState<string>("10");
+  // const [money, setMoney] = useState<string>("10");
+  const { setIsOpen } = BindPhone.use();
+  const { setIsUnbindOpen } = UnbindPhone.use();
   useEffect(() => {
-    setUserInfo(JSON.parse(localStorage.getItem("user") as string));
+    fetchUserInfo();
   }, []);
 
+  const fetchUserInfo = async () => {
+    const resp = await check().catch(console.error);
+    if (resp) {
+      const userInfo = await getUserInfo();
+      setUserInfo(userInfo);
+      localStorage.setItem("user", JSON.stringify(userInfo));
+    }
+  };
+
   const handleBindPhone = async () => {
-    window.open("/bind");
+    // window.open("/bind");
+    setIsOpen(true);
   };
 
   const handleLogout = async () => {
@@ -25,9 +40,9 @@ const Account = () => {
     }
   };
 
-  const handleChangeMoney = (value: string) => {
-    setMoney(value);
-  };
+  // const handleChangeMoney = (value: string) => {
+  //   setMoney(value);
+  // };
 
   return (
     <div className="h-full justify-between overflow-y-auto bg-zinc-900 px-5 py-6">
@@ -84,6 +99,14 @@ const Account = () => {
             >
               使用向导
             </a>
+            {userInfo?.phone && (
+              <a
+                className="text-brand-600 dark:text-brand-400 cursor-pointer text-right font-medium hover:underline"
+                onClick={() => setIsUnbindOpen(true)}
+              >
+                解除绑定手机号
+              </a>
+            )}
           </div>
         </div>
         <div className="flex flex-wrap">
@@ -162,6 +185,8 @@ const Account = () => {
           </div> */}
         </div>
       </div>
+      <BindPhone />
+      <UnbindPhone />
     </div>
   );
 };
