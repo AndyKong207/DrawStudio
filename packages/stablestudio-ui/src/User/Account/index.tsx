@@ -55,9 +55,9 @@ const Account = () => {
         </div>
         <div className="flex justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex aspect-square h-full items-center justify-center rounded-full bg-gray-400 text-xl">
+            <div className="flex aspect-square h-16 w-16 items-center justify-center rounded-full bg-gray-400 text-xl">
               <svg
-                className="h-[75px] w-[75px]"
+                className="h-12 w-12"
                 focusable="false"
                 aria-hidden="true"
                 viewBox="0 0 24 24"
