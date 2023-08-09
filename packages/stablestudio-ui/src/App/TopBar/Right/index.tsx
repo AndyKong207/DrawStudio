@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { check, getUserInfo } from "~/api/modules/user";
 // import { GlobalState } from "~/GlobalState";
 import { Router } from "~/Router";
-import { Shortcut } from "~/Shortcut";
 import { Theme } from "~/Theme";
 
 import { Feedback } from "./Feedback";
@@ -10,7 +9,7 @@ import { Feedback } from "./Feedback";
 export const Right = () => {
   // const { setIsOpen } = Shortcut.Palette.use();
   const { setIsOpen } = Feedback.use();
-  const isMobileDevice = Theme.useIsMobileDevice();
+  // const isMobileDevice = Theme.useIsMobileDevice();
   // const apiKey = localStorage.getItem("stability-apiKey");
   const navigate = Router.useNavigate();
 
@@ -70,7 +69,6 @@ export const Right = () => {
             <span>反馈/抖音</span>
           </div>
         </Theme.Button>
-        <Feedback />
         {userInfo ? (
           <Link to="/account">
             <div className="flex aspect-square h-full items-center justify-center rounded-full bg-gray-400 text-xl">
@@ -103,6 +101,7 @@ export const Right = () => {
           />
         </Link> */}
       </>
+      <Feedback />
     </div>
   );
 };
