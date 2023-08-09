@@ -84,6 +84,7 @@ const Login = () => {
           size="lg"
           className="mb-2 mt-4"
           onClick={handleLogin}
+          disabled={!email || !password}
         >
           登录
         </Theme.Button>

@@ -32,8 +32,7 @@ const Login = () => {
 
   const handleSendCode = async () => {
     const captchaResp: any = await captcha();
-    const resp = true;
-    await sendSms({
+    const resp = await sendSms({
       ...captchaResp, // 即 ticket, randstr
       phone,
     }).catch((e) => {
@@ -89,7 +88,7 @@ const Login = () => {
             color="brand"
             className="h-12"
             onClick={handleSendCode}
-            disabled={counter !== 60}
+            disabled={counter !== 60 || !phone}
           >
             发送验证码{counter < 60 ? <span>({counter})</span> : null}
           </Theme.Button>
@@ -109,6 +108,7 @@ const Login = () => {
           size="lg"
           className="mb-2 mt-4"
           onClick={handleLogin}
+          disabled={!code || !phone}
         >
           登录
         </Theme.Button>

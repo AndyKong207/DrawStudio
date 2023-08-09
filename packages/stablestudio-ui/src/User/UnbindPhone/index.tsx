@@ -24,8 +24,7 @@ export function UnbindPhone() {
 
   const handleSendCode = async () => {
     const captchaResp: any = await captcha();
-    const resp = true;
-    await sendSms({
+    const resp = await sendSms({
       ...captchaResp, // 即 ticket, randstr
       phone,
     }).catch((e) => {
@@ -91,7 +90,7 @@ export function UnbindPhone() {
                   color="brand"
                   className="h-12"
                   onClick={handleSendCode}
-                  disabled={counter !== 60}
+                  disabled={counter !== 60 || !code}
                 >
                   发送验证码{counter < 60 ? <span>({counter})</span> : null}
                 </Theme.Button>
@@ -111,6 +110,7 @@ export function UnbindPhone() {
                 size="lg"
                 className="mb-2 mt-4"
                 onClick={handleUnbind}
+                disabled={!phone || !code}
               >
                 解除绑定
               </Theme.Button>

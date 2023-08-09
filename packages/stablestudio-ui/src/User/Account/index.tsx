@@ -12,7 +12,7 @@ const Account = () => {
   const [userInfo, setUserInfo] = useState<any>();
   // const [money, setMoney] = useState<string>("10");
   const { setIsOpen } = BindPhone.use();
-  const { setIsUnbindOpen } = UnbindPhone.use();
+  // const { setIsUnbindOpen } = UnbindPhone.use();
   useEffect(() => {
     fetchUserInfo();
   }, []);
@@ -99,14 +99,14 @@ const Account = () => {
             >
               使用向导
             </a>
-            {userInfo?.phone && (
+            {/* {userInfo?.phone && (
               <a
                 className="text-brand-600 dark:text-brand-400 cursor-pointer text-right font-medium hover:underline"
                 onClick={() => setIsUnbindOpen(true)}
               >
                 解除绑定手机号
               </a>
-            )}
+            )} */}
           </div>
         </div>
         <div className="flex flex-wrap">

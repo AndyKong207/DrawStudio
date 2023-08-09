@@ -70,6 +70,7 @@ const Login = () => {
           size="lg"
           className="mb-2"
           onClick={handleRegister}
+          disabled={!email || !password}
         >
           注册
         </Theme.Button>
