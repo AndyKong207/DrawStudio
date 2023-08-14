@@ -45,7 +45,7 @@ export namespace Everything {
     return (
       <>
         <Editor.Tool
-          label="Smart export"
+          label="智能导出"
           onMouseEnter={() => {
             if (stageRef && stageRef.current) {
               const filtered = getFilteredEntities();
@@ -107,7 +107,7 @@ export namespace Everything {
             >
               <div className="rounded border border-zinc-700 bg-zinc-900 p-6">
                 <h1 className="opacity-muted text-lg font-light">
-                  No images in view
+                  图象缩放至视窗内
                 </h1>
               </div>
             </motion.div>

@@ -7,12 +7,7 @@ export namespace Sidebar {
     const setBrush = Editor.Brush.useSet();
     const brush = Editor.Brush.use();
     return (
-      <App.Sidebar.Section
-        title="Eraser settings"
-        defaultExpanded
-        collapsable
-        divider
-      >
+      <App.Sidebar.Section title="橡皮设置" defaultExpanded collapsable divider>
         <div className="flex w-full items-center gap-5">
           <div className="relative flex aspect-square w-[10rem] items-center justify-center overflow-hidden rounded bg-white/10">
             <Theme.Checkered />
@@ -25,20 +20,20 @@ export namespace Sidebar {
           </div>
           <div className="flex w-full flex-col gap-2">
             <Theme.Slider
-              title="Size"
+              title="大小"
               value={brush.size}
               min={Editor.Brush.Size.min()}
               max={Editor.Brush.Size.max()}
               onChange={(size) => setBrush((brush) => ({ ...brush, size }))}
             />
             <Theme.Slider
-              title="Blur"
+              title="模糊"
               value={brush.blur}
               max={Editor.Brush.Blur.max()}
               onChange={(blur) => setBrush((brush) => ({ ...brush, blur }))}
             />
             <Theme.Slider
-              title="Strength"
+              title="强度"
               step={1}
               percentage
               value={brush.strength * 100}

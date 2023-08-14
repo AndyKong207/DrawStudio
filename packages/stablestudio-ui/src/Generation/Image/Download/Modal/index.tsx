@@ -90,9 +90,9 @@ export function Modal() {
               color="brand"
               icon={Theme.Icon.Download}
               loading={upscaling}
-              badgeRight={
-                goingToUpscale && <Theme.Badge color="brand">0.2</Theme.Badge>
-              }
+              // badgeRight={
+              //   goingToUpscale && <Theme.Badge color="brand">0.2</Theme.Badge>
+              // }
               onClick={() => {
                 if (!image || !input) return;
 
@@ -108,11 +108,7 @@ export function Modal() {
                 }
               }}
             >
-              {upscaling
-                ? "Upscaling..."
-                : goingToUpscale
-                ? "高清下载"
-                : "下载"}
+              {upscaling ? "高清中..." : goingToUpscale ? "高清下载" : "下载"}
             </Theme.Button>
           </div>
         </Theme.Modal.Panel>

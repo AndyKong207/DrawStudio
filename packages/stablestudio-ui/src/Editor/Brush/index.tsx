@@ -231,7 +231,7 @@ export namespace Brush {
     return (
       <>
         <Cursor />
-        <Editor.Tool label="Eraser" tool="brush">
+        <Editor.Tool label="橡皮" tool="brush">
           <Brush.Icon />
         </Editor.Tool>
       </>

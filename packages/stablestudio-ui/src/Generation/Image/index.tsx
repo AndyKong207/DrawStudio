@@ -111,7 +111,7 @@ export function Image({
           {isUpscaled && (
             <div className="absolute bottom-3 left-3 flex items-end justify-end">
               <Theme.Badge className="bg-zinc-800/50 backdrop-blur-md">
-                Upscaled {input?.width}x{input?.height}
+                已高清 {input?.width}x{input?.height}
               </Theme.Badge>
             </div>
           )}

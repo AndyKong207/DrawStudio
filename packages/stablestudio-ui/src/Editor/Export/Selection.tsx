@@ -5,7 +5,7 @@ import { Theme } from "~/Theme";
 export namespace Selection {
   export function Tool() {
     return (
-      <Editor.Tool label="Selection export" tool="export">
+      <Editor.Tool label="框选导出" tool="export">
         <Theme.Icon.Camera strokeWidth={1.5} size={22} />
       </Editor.Tool>
     );

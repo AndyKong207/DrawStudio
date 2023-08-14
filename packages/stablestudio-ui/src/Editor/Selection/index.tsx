@@ -72,7 +72,7 @@ export namespace Selection {
 
   export function Tool() {
     return (
-      <Editor.Tool label="Select" tool="select">
+      <Editor.Tool label="选择" tool="select">
         <Icon strokeWidth={1.5} size={22} />
       </Editor.Tool>
     );

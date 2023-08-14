@@ -130,7 +130,7 @@ export namespace Sidebar {
                     max={100}
                     step={1}
                     percentage
-                    title="Image strength"
+                    title="原图权重"
                     onChange={(weight) => {
                       const strength = weight / 100;
 
