@@ -25,11 +25,11 @@ export default defineConfig(({ mode }) => {
       fs: { strict: false },
       proxy: {
         "/api": {
-          target: "https://124.222.198.28/",
+          target: "https://banruoai.cn/",
           changeOrigin: true,
         },
         "/aiart": {
-          target: "https://124.222.198.28/",
+          target: "https://banruoai.cn/",
           changeOrigin: true,
         },
       },

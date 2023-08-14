@@ -28,6 +28,10 @@ export const unbindPhone = (params: Login.ReqLoginForm) => {
   return http.post("/api/user/unbind", params);
 };
 
+export const forgot = (params: Login.ReqLoginForm) => {
+  return http.post("/api/user/forgot", params);
+};
+
 export const logout = () => {
   return http.post("/api/user/logout");
 };
