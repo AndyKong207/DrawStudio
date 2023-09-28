@@ -55,8 +55,8 @@ export const createPlugin = StableStudio.createPlugin<{
         name: "Stable Diffusion XL v1.0",
       },
       {
-        id: "inpainting-v2-0",
-        name: "inpainting-v2-0",
+        id: "stable-inpainting-512-v2-0",
+        name: "Stable Inpainting v2.0",
       },
     ];
   },

@@ -91,7 +91,8 @@
       tokens.start()
 
       fetchData()
-      setInterval(fetchData, 5000);
+      // todo clearInterval if lost focus
+      setInterval(fetchData, 60 * 1000);
       
       function fetchData () {
         fetch('/api/user/sum', {
