@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import { logout } from "~/api/modules/user";
 import { check, getUserInfo } from "~/api/modules/user";
 
@@ -32,12 +31,8 @@ const Account = () => {
   };
 
   const handleLogout = async () => {
-    Cookies.remove("banruo.sig");
-    Cookies.remove("banruo");
     const resp = await logout();
-    if (resp) {
-      window.location.href = "/draw-studio/signin";
-    }
+    window.location.href = "/draw-studio/signin";
   };
 
   // const handleChangeMoney = (value: string) => {
