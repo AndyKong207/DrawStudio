@@ -31,7 +31,7 @@ const Account = () => {
   };
 
   const handleLogout = async () => {
-    const resp = await logout();
+    await logout();
     window.location.href = "/draw-studio/signin";
   };
 
@@ -178,6 +178,19 @@ const Account = () => {
               </tbody>
             </table>
           </div> */}
+        </div>
+        <div>
+          初次绑定手机号可得50魔力值， 魔力值低于20会在每日0点自动免费补充，
+          1魔力值 = 1张图。 <br />
+          客服抖音：
+          <a
+            style={{ fontWeight: "bold" }}
+            href="https://www.douyin.com/user/MS4wLjABAAAASxMgvZzGrbfaNBg1-gsmsmH4fvcyZpL5mPr_my-009M"
+            target="_blank"
+            rel="noreferrer"
+          >
+            般若Ai
+          </a>
         </div>
       </div>
       <BindPhone />
