@@ -15,15 +15,32 @@
 </head>
 
 <body class="bg-slate-100 h-full w-full overflow-y-auto">
+    <h1 style="display: none">AI生成式大模型 + AI绘画</h1>
     <div class="h-full w-full bg-slate-100 text-black">
         <div class="flex items-center space-x-2 p-4">
             <img class="w-9" src="./draw-studio/pineapple.png" alt="">
             <span class="text-lg font-bold">般若AI</span>
         </div>
+
+        <iframe id="notice" scrolling="no" onload='javascript:(function(o){o.style.height=(o.contentWindow.document.body.scrollHeight+30)+"px";}(this));' style="width:100%;border:none;overflow:hidden;display:none;"></iframe>
+
+        <script type="text/javascript">
+            var notice = document.getElementById('notice')
+            // fetch('./notice.html')
+            fetch('/api/user/notice-html', { method: "POST" })
+                .then(function(r) {
+                    return r.text()
+                })
+                .then(function(html) {
+                    if (html) {
+                        notice.style.display = 'block'
+                        notice.srcdoc = html
+                    }
+                })
+                .catch(console.error)
+        </script>
+
         <div class="mx-auto flex max-w-[70rem] flex-col p-4">
-            <!-- <span class="mb-10 mt-10 text-center text-4xl font-bold text-[#9013fe]">
-          选择您要使用的功能
-        </span> -->
             <div class="flex flex-wrap justify-around">
                 <div class="mb-4 flex w-[500px] min-h-[310px] flex-col items-center rounded-lg bg-white p-8 shadow-md">
                     <a href="/chat" target="_blank">
@@ -98,7 +115,7 @@
         }).then(function(data) {
             sumData = data
             setNum()
-        })
+        }).catch(console.error)
     };
 
     function setNum() {
