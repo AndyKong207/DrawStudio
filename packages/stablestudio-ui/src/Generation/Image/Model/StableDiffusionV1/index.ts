@@ -53,7 +53,7 @@ export namespace StableDiffusionV1 {
           { text: "", weight: -0.75 },
         ],
 
-        model: pluginDefaultInput?.model ?? "stable-diffusion-xl-beta-v2-2-2",
+        model: pluginDefaultInput?.model ?? "stable-diffusion-xl-1024-v1-0",
         sampler: pluginDefaultInput?.sampler ?? { id: "0", name: "DDIM" },
         height: pluginDefaultInput?.width ?? 512,
         width: pluginDefaultInput?.height ?? 512,

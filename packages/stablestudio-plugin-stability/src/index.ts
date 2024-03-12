@@ -25,7 +25,8 @@ const getStableDiffusionDefaultInputFromPrompt = (prompt: string) => ({
     },
   ],
 
-  model: "stable-diffusion-xl-beta-v2-2-2",
+  // model: "stable-diffusion-xl-beta-v2-2-2",
+  model: "stable-diffusion-xl-1024-v1-0",
   sampler: { id: "0", name: "DDIM" },
   style: "enhance",
 

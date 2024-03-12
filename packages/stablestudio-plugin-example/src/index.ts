@@ -33,7 +33,8 @@ export const createPlugin = StableStudio.createPlugin<{
       },
     ],
 
-    model: "stable-diffusion-xl-beta-v2-2-2",
+    // model: "stable-diffusion-xl-beta-v2-2-2",
+    model: "stable-diffusion-xl-1024-v1-0",
     sampler: { id: "auto", name: "自动选择" },
     style: "none",
 
@@ -46,10 +47,10 @@ export const createPlugin = StableStudio.createPlugin<{
 
   getStableDiffusionModels: () => {
     return [
-      {
-        id: "stable-diffusion-xl-beta-v2-2-2",
-        name: "SDXL Beta",
-      },
+      // {
+      //   id: "stable-diffusion-xl-beta-v2-2-2",
+      //   name: "SDXL Beta",
+      // },
       {
         id: "stable-diffusion-xl-1024-v1-0",
         name: "Stable Diffusion XL v1.0",

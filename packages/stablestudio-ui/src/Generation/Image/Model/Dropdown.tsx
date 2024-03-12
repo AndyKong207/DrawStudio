@@ -8,7 +8,7 @@ export function Dropdown({ id, className }: Styleable & { id: ID }) {
   const onClick = useCallback(
     (value: string) => {
       setInput((input) => {
-        console.log("model", value);
+        // console.log("model", value);
         input.model = value;
       });
     },
@@ -20,10 +20,10 @@ export function Dropdown({ id, className }: Styleable & { id: ID }) {
       ...(models ?? []).map(({ id, name }) => ({
         value: id,
         name:
-          id === "stable-diffusion-xl-v2-2" ? (
+          id === "stable-diffusion-xl-1024-v1-0" ? (
             <>
-              SDXL&nbsp;
-              <Theme.New>Preview</Theme.New>
+              SDXL 1.0
+              {/* <Theme.New>Preview</Theme.New> */}
             </>
           ) : id === "stable-diffusion-xl-beta-v2-2-2" ? (
             <>
