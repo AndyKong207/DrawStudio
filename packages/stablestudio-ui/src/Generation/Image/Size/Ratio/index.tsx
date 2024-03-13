@@ -49,6 +49,7 @@ export function Ratio({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input?.model]);
 
+  // console.log({ closest, ratios });
   if (!closest || ratios.length <= 1) return null;
   return (
     <>

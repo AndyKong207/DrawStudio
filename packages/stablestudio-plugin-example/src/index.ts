@@ -38,8 +38,8 @@ export const createPlugin = StableStudio.createPlugin<{
     sampler: { id: "auto", name: "自动选择" },
     style: "none",
 
-    width: 512,
-    height: 512,
+    width: 1024,
+    height: 1024,
 
     cfgScale: 7,
     steps: 30,
