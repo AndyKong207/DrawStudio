@@ -1,6 +1,7 @@
-@import "https://fonts.googleapis.com/css2?family=Megrim&display=swap";
+/*@import "https://fonts.googleapis.com/css2?family=Megrim&display=swap";*/
 #word{
-  font-family: Megrim, cursive;
+/*  font-family: Megrim, cursive;*/
+  font-family: cursive;
   font-size: 20vh;
   position: absolute;
   margin: 10;
