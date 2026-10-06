@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
 <head>
     <title>般若AI - 官方网站</title>
@@ -8,25 +8,823 @@
     <meta name="keywords" content="ai, ai chat, gpt, 人工智能, AI聊天机器人, AI绘画, AI创作, 大语言模型,自然语言处理,人工智能大模型" />
     <meta property="og:description" content="般若AI，专注于为用户提供健康合法的AI聊天机器人及AI绘画服务，可免费使用" />
     <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#04060f" />
     <link rel="icon" type="image/svg+xml" href="./draw-studio/favicon.svg" />
     <script src="https://draw-1304100014.cos.ap-shanghai.myqcloud.com/draw.js/tailwindcss.js"></script>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" /> -->
     <script src="./draw-studio/countUp.js"></script>
+    <style>
+    @font-face {
+        font-family: "Inter";
+        src: url("./Inter.ttf") format("truetype");
+        font-display: swap;
+    }
+
+    :root {
+        --bg-0: #04060f;
+        --bg-1: #070c1d;
+        --cyan: #2fe6ff;
+        --blue: #4f7dff;
+        --violet: #9b6bff;
+        --magenta: #ff6bd6;
+        --ink: #eaf2ff;
+        --muted: #8a9bc4;
+        --line: rgba(120, 185, 255, .18);
+        --card: rgba(13, 19, 40, .58);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        background: var(--bg-0);
+        color: var(--ink);
+        font-family: "Inter", "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+    }
+
+    /* ---------- background scene ---------- */
+    .scene {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+        background:
+            radial-gradient(900px 620px at 15% -5%, rgba(47, 110, 255, .22), transparent 60%),
+            radial-gradient(820px 620px at 92% 8%, rgba(155, 107, 255, .20), transparent 62%),
+            radial-gradient(760px 700px at 50% 118%, rgba(255, 107, 214, .14), transparent 60%),
+            linear-gradient(180deg, var(--bg-1), var(--bg-0) 60%);
+    }
+
+    .scene::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(120% 90% at 50% 40%, transparent 40%, rgba(2, 3, 10, .85) 100%);
+    }
+
+    .stars {
+        position: absolute;
+        inset: -60%;
+        background-image:
+            radial-gradient(1.4px 1.4px at 40px 60px, #ffffff, transparent 60%),
+            radial-gradient(1.2px 1.2px at 260px 180px, rgba(180, 220, 255, .95), transparent 60%),
+            radial-gradient(1px 1px at 520px 90px, rgba(255, 255, 255, .8), transparent 60%),
+            radial-gradient(1.6px 1.6px at 120px 420px, rgba(150, 200, 255, .9), transparent 60%),
+            radial-gradient(1px 1px at 660px 520px, rgba(255, 255, 255, .6), transparent 60%),
+            radial-gradient(1.3px 1.3px at 380px 300px, rgba(255, 190, 255, .8), transparent 60%),
+            radial-gradient(1px 1px at 700px 240px, rgba(200, 235, 255, .7), transparent 60%),
+            radial-gradient(1.5px 1.5px at 210px 640px, rgba(255, 255, 255, .7), transparent 60%);
+        background-size: 760px 760px;
+        opacity: .75;
+        animation: starDrift 180s linear infinite;
+    }
+
+    .stars.twinkle {
+        opacity: .5;
+        animation: starDrift 240s linear infinite reverse, twinkle 6s ease-in-out infinite;
+    }
+
+    @keyframes starDrift {
+        to {
+            transform: translate3d(-380px, -380px, 0);
+        }
+    }
+
+    @keyframes twinkle {
+        50% {
+            opacity: .95;
+        }
+    }
+
+    .grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(90, 160, 255, .10) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(90, 160, 255, .10) 1px, transparent 1px);
+        background-size: 64px 64px;
+        -webkit-mask-image: radial-gradient(circle at 50% 26%, #000 0%, transparent 72%);
+        mask-image: radial-gradient(circle at 50% 26%, #000 0%, transparent 72%);
+        opacity: .6;
+    }
+
+    .glow {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(95px);
+        opacity: .5;
+        mix-blend-mode: screen;
+    }
+
+    .glow-a {
+        width: 520px;
+        height: 520px;
+        left: -140px;
+        top: -160px;
+        background: radial-gradient(circle, rgba(47, 230, 255, .9), transparent 70%);
+        animation: float1 20s ease-in-out infinite;
+    }
+
+    .glow-b {
+        width: 600px;
+        height: 600px;
+        right: -200px;
+        top: 20px;
+        background: radial-gradient(circle, rgba(155, 107, 255, .9), transparent 70%);
+        animation: float2 24s ease-in-out infinite;
+    }
+
+    .glow-c {
+        width: 560px;
+        height: 560px;
+        left: 32%;
+        bottom: -280px;
+        background: radial-gradient(circle, rgba(255, 107, 214, .8), transparent 70%);
+        animation: float3 28s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+
+        0%,
+        100% {
+            transform: translate(0, 0) scale(1);
+        }
+
+        50% {
+            transform: translate(40px, 30px) scale(1.08);
+        }
+    }
+
+    @keyframes float2 {
+
+        0%,
+        100% {
+            transform: translate(0, 0) scale(1.05);
+        }
+
+        50% {
+            transform: translate(-40px, 40px) scale(1);
+        }
+    }
+
+    @keyframes float3 {
+
+        0%,
+        100% {
+            transform: translate(0, 0) scale(1);
+        }
+
+        50% {
+            transform: translate(30px, -30px) scale(1.1);
+        }
+    }
+
+    .scanline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 140px;
+        background: linear-gradient(180deg, transparent, rgba(90, 200, 255, .06), transparent);
+        animation: scan 9s linear infinite;
+    }
+
+    @keyframes scan {
+        0% {
+            top: -20%;
+        }
+
+        100% {
+            top: 110%;
+        }
+    }
+
+    /* ---------- layout ---------- */
+    .page {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ---------- nav ---------- */
+    .nav {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 26px 24px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .brand-ring {
+        position: relative;
+        width: 52px;
+        height: 52px;
+        flex: none;
+        display: grid;
+        place-items: center;
+        border-radius: 16px;
+        background: linear-gradient(145deg, rgba(47, 230, 255, .18), rgba(155, 107, 255, .18));
+        border: 1px solid rgba(120, 190, 255, .38);
+        box-shadow: 0 0 26px rgba(47, 230, 255, .35), inset 0 0 18px rgba(47, 230, 255, .15);
+    }
+
+    .brand-ring::after {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 20px;
+        border: 1px solid rgba(120, 190, 255, .3);
+        animation: pulseRing 3s ease-out infinite;
+    }
+
+    @keyframes pulseRing {
+        0% {
+            transform: scale(.9);
+            opacity: .85;
+        }
+
+        100% {
+            transform: scale(1.28);
+            opacity: 0;
+        }
+    }
+
+    .brand-ring img {
+        width: 30px;
+        height: 30px;
+        display: block;
+        filter: drop-shadow(0 0 8px rgba(120, 230, 255, .8));
+    }
+
+    .brand-name {
+        font-size: 22px;
+        font-weight: 800;
+        letter-spacing: .14em;
+        background: linear-gradient(90deg, #c9f7ff, #7fb2ff 45%, #c79bff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .brand-sub {
+        margin-top: 3px;
+        font-size: 10px;
+        letter-spacing: .34em;
+        color: var(--muted);
+        text-transform: uppercase;
+    }
+
+    .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 15px;
+        border-radius: 999px;
+        font-size: 12px;
+        letter-spacing: .16em;
+        color: #bfe9ff;
+        border: 1px solid rgba(120, 190, 255, .3);
+        background: rgba(18, 28, 56, .5);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+    }
+
+    .status .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #38f7c8;
+        box-shadow: 0 0 12px #38f7c8;
+        animation: blink 1.8s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: .3;
+        }
+    }
+
+    /* ---------- notice ---------- */
+    .notice-wrap {
+        max-width: 1120px;
+        margin: 20px auto 0;
+        padding: 0 24px;
+    }
+
+    #notice {
+        width: 100%;
+        border: none;
+        overflow: hidden;
+        border-radius: 12px;
+        box-shadow: 0 0 0 1px rgba(120, 190, 255, .22), 0 0 30px -12px rgba(47, 200, 255, .6);
+    }
+
+    /* ---------- hero ---------- */
+    .hero {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: clamp(34px, 7vw, 84px) 24px 6px;
+        text-align: center;
+    }
+
+    .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 18px;
+        border-radius: 999px;
+        font-size: 11px;
+        letter-spacing: .34em;
+        color: #9fd9ff;
+        border: 1px solid rgba(120, 190, 255, .28);
+        background: rgba(16, 24, 50, .55);
+        text-transform: uppercase;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+        content: "";
+        width: 6px;
+        height: 6px;
+        transform: rotate(45deg);
+        background: linear-gradient(135deg, var(--cyan), var(--violet));
+        box-shadow: 0 0 10px rgba(47, 230, 255, .9);
+    }
+
+    .hero h2 {
+        margin: 24px 0 16px;
+        font-size: clamp(30px, 6vw, 58px);
+        line-height: 1.12;
+        font-weight: 800;
+        letter-spacing: .02em;
+        background: linear-gradient(118deg, #ffffff, #a9d4ff 42%, #c9a6ff 72%, #ffd0f4);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0 0 30px rgba(90, 170, 255, .35));
+    }
+
+    .hero p {
+        max-width: 660px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: clamp(14px, 1.6vw, 17px);
+        line-height: 1.85;
+    }
+
+    /* ---------- cards ---------- */
+    .cards {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: clamp(30px, 5vw, 56px) 24px 8px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        padding: 30px;
+        border-radius: 20px;
+        background: linear-gradient(158deg, rgba(22, 31, 60, .74), rgba(8, 12, 26, .74));
+        border: 1px solid var(--line);
+        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(14px);
+        box-shadow: 0 26px 60px -34px rgba(30, 80, 180, .95), inset 0 1px 0 rgba(255, 255, 255, .06);
+        overflow: hidden;
+        transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+
+    .card::before {
+        content: "";
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        top: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(120, 220, 255, .85), transparent);
+        opacity: .75;
+    }
+
+    .card::after {
+        content: "";
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
+        width: 26px;
+        height: 26px;
+        border-right: 1px solid rgba(120, 220, 255, .5);
+        border-bottom: 1px solid rgba(120, 220, 255, .5);
+        border-radius: 0 0 8px 0;
+        opacity: .7;
+        transition: opacity .35s ease, transform .35s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(120, 220, 255, .6);
+        box-shadow: 0 40px 86px -34px rgba(47, 150, 255, .8), 0 0 46px -14px rgba(47, 230, 255, .6), inset 0 1px 0 rgba(255, 255, 255, .1);
+    }
+
+    .card:hover::after {
+        opacity: 1;
+        transform: translate(-2px, -2px);
+    }
+
+    .card-head {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .card-icon {
+        width: 48px;
+        height: 48px;
+        flex: none;
+        display: grid;
+        place-items: center;
+        border-radius: 13px;
+        color: #bff4ff;
+        background: linear-gradient(145deg, rgba(47, 230, 255, .16), rgba(155, 107, 255, .16));
+        border: 1px solid rgba(120, 190, 255, .32);
+        box-shadow: 0 0 22px rgba(47, 230, 255, .28), inset 0 0 14px rgba(47, 230, 255, .12);
+    }
+
+    .card-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .card-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: .05em;
+        color: #eaf4ff;
+        text-decoration: none;
+    }
+
+    a.card-title:hover {
+        color: #7fe6ff;
+    }
+
+    .features {
+        list-style: none;
+        margin: 0 0 24px;
+        padding: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+    }
+
+    .features li {
+        position: relative;
+        padding-left: 26px;
+        color: #c2cfe9;
+        font-size: 14.5px;
+        line-height: 1.55;
+    }
+
+    .features li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: .55em;
+        width: 8px;
+        height: 8px;
+        transform: rotate(45deg);
+        background: linear-gradient(135deg, var(--cyan), var(--violet));
+        box-shadow: 0 0 10px rgba(47, 230, 255, .75);
+    }
+
+    .btn {
+        position: relative;
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: .08em;
+        color: #041019;
+        cursor: pointer;
+        overflow: hidden;
+        background: linear-gradient(120deg, #8bf2ff, #5aa8ff 46%, #b98bff);
+        box-shadow: inset 0 0 0 1px rgba(180, 240, 255, .6), 0 12px 32px -12px rgba(80, 180, 255, .95);
+        transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+    }
+
+    .btn::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -60%;
+        width: 40%;
+        height: 100%;
+        background: linear-gradient(105deg, transparent, rgba(255, 255, 255, .75), transparent);
+        transform: skewX(-18deg);
+        animation: sheen 3.4s ease-in-out infinite;
+    }
+
+    @keyframes sheen {
+
+        0%,
+        55% {
+            left: -60%;
+        }
+
+        100% {
+            left: 130%;
+        }
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.07);
+        box-shadow: inset 0 0 0 1px rgba(200, 245, 255, .8), 0 18px 44px -12px rgba(120, 200, 255, 1), 0 0 26px rgba(47, 230, 255, .6);
+    }
+
+    .btn:active {
+        transform: translateY(0);
+    }
+
+    .btn .arw {
+        position: relative;
+        z-index: 1;
+        transition: transform .25s ease;
+    }
+
+    .btn:hover .arw {
+        transform: translateX(4px);
+    }
+
+    /* ---------- stats ---------- */
+    .stats {
+        max-width: 1120px;
+        margin: clamp(22px, 3.5vw, 46px) auto 0;
+        padding: 0 24px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+    }
+
+    .stat {
+        position: relative;
+        text-align: center;
+        padding: 28px 18px;
+        border-radius: 18px;
+        background: rgba(12, 18, 38, .5);
+        border: 1px solid var(--line);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        overflow: hidden;
+    }
+
+    .stat::before {
+        content: "";
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        top: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(120, 220, 255, .8), transparent);
+        opacity: .7;
+    }
+
+    .stat-value {
+        font-family: "SFMono-Regular", Consolas, "Roboto Mono", ui-monospace, monospace;
+        font-size: clamp(32px, 5.5vw, 48px);
+        font-weight: 800;
+        letter-spacing: .02em;
+        background: linear-gradient(90deg, #93f1ff, #6aa8ff 52%, #c79bff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        filter: drop-shadow(0 0 20px rgba(80, 190, 255, .55));
+    }
+
+    .stat-label {
+        margin-top: 10px;
+        font-size: 13px;
+        letter-spacing: .22em;
+        color: var(--muted);
+    }
+
+    /* ---------- divider ---------- */
+    .divider {
+        position: relative;
+        max-width: 1120px;
+        height: 1px;
+        margin: clamp(40px, 7vw, 90px) auto 0;
+        background: linear-gradient(90deg, transparent, rgba(120, 190, 255, .35), transparent);
+    }
+
+    .divider::after {
+        content: "";
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 140px;
+        height: 3px;
+        border-radius: 3px;
+        background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        box-shadow: 0 0 16px rgba(47, 230, 255, .9);
+        animation: travel 6s linear infinite;
+    }
+
+    @keyframes travel {
+        0% {
+            left: -10%;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+    /* ---------- hero image ---------- */
+    .hero-img {
+        position: relative;
+        margin-top: 0;
+        line-height: 0;
+        overflow: hidden;
+    }
+
+    .hero-img::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto 0;
+        height: 150px;
+        background: linear-gradient(to bottom, var(--bg-0), transparent);
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .hero-img::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 140px;
+        background: linear-gradient(to top, var(--bg-0), transparent);
+        z-index: 2;
+        pointer-events: none;
+    }
+
+    .hero-img img {
+        width: 100%;
+        max-height: 640px;
+        display: block;
+        object-fit: cover;
+        filter: saturate(1.08) contrast(1.03);
+    }
+
+    .img-caption {
+        position: absolute;
+        z-index: 3;
+        left: 0;
+        right: 0;
+        bottom: 42px;
+        text-align: center;
+        font-size: 11px;
+        letter-spacing: .5em;
+        text-indent: .5em;
+        color: rgba(200, 230, 255, .85);
+        text-transform: uppercase;
+        text-shadow: 0 0 18px rgba(0, 140, 255, .9);
+    }
+
+    .img-caption span {
+        display: inline-block;
+        padding: 8px 22px;
+        border-radius: 999px;
+        border: 1px solid rgba(130, 200, 255, .3);
+        background: rgba(6, 12, 28, .45);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+    }
+
+    /* ---------- footer ---------- */
+    .footer {
+        position: relative;
+        z-index: 1;
+        padding: 26px 24px 36px;
+        text-align: center;
+    }
+
+    .footer a {
+        color: #6f7ea3;
+        font-size: 12px;
+        letter-spacing: .12em;
+        text-decoration: none;
+    }
+
+    .footer a:hover {
+        color: #9fd9ff;
+    }
+
+    @media (max-width: 860px) {
+        .cards {
+            grid-template-columns: 1fr;
+        }
+
+        .card {
+            padding: 24px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .stats {
+            grid-template-columns: 1fr;
+        }
+
+        .brand-sub {
+            display: none;
+        }
+
+        .img-caption {
+            bottom: 22px;
+            letter-spacing: .3em;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+        .stars,
+        .stars.twinkle,
+        .glow,
+        .scanline,
+        .btn::after,
+        .divider::after,
+        .brand-ring::after,
+        .status .dot {
+            animation: none !important;
+        }
+    }
+    </style>
 </head>
 
-<body class="bg-slate-100 h-full w-full overflow-y-auto">
-    <h1 style="display: none">AI生成式大模型 + AI绘画</h1>
-    <div class="h-full w-full bg-slate-100 text-black">
-        <div class="flex items-center space-x-2 p-4">
-            <img class="w-9" src="./draw-studio/pineapple.png" alt="">
-            <span class="text-lg font-bold">般若AI</span>
-        </div>
+<body>
+    <h1 style="display: none">AI 大语言模型 + AI 绘画</h1>
 
-        <iframe id="notice" scrolling="no" onload='javascript:(function(o){o.style.height=(o.contentWindow.document.body.scrollHeight+30)+"px";}(this));' style="width:100%;border:none;overflow:hidden;display:none;"></iframe>
+    <div class="scene" aria-hidden="true">
+        <div class="stars"></div>
+        <div class="stars twinkle"></div>
+        <div class="grid"></div>
+        <div class="glow glow-a"></div>
+        <div class="glow glow-b"></div>
+        <div class="glow glow-c"></div>
+        <div class="scanline"></div>
+    </div>
 
-        <script type="text/javascript">
+    <div class="page">
+        <header class="nav">
+            <div class="brand">
+                <span class="brand-ring">
+                    <img src="./draw-studio/pineapple.png" alt="般若AI">
+                </span>
+                <div>
+                    <div class="brand-name">般若AI</div>
+                    <div class="brand-sub">BANRUO AI</div>
+                </div>
+            </div>
+            <div class="status"><span class="dot"></span>系统在线</div>
+        </header>
+<!--         <div class="notice-wrap">
+            <iframe id="notice" scrolling="no" onload='javascript:(function(o){o.style.height=(o.contentWindow.document.body.scrollHeight+30)+"px";}(this));' style="display:none;"></iframe>
+        </div> -->
+<!--         <script type="text/javascript">
             var notice = document.getElementById('notice')
-            // fetch('./notice.html')
             fetch('/api/user/notice-html', { method: "POST" })
                 .then(function(r) {
                     return r.text()
@@ -39,60 +837,77 @@
                 })
                 .catch(console.error)
         </script>
+ -->
+        <section class="hero">
+            <span class="eyebrow">AI Generative Platform</span>
+            <h2>AI 大语言模型 + AI 绘画</h2>
+            <p>般若AI，专注于为用户提供健康合法的 AI 聊天机器人及 AI 绘画服务，从2023年初至今免费提供服务</p>
+        </section>
 
-        <div class="mx-auto flex max-w-[70rem] flex-col p-4">
-            <div class="flex flex-wrap justify-around">
-                <div class="mb-4 flex w-[500px] min-h-[310px] flex-col items-center rounded-lg bg-white p-8 shadow-md">
-                    <a href="/chat" target="_blank">
-                        <div class="mb-4 text-xl font-bold">AI大语言模型</div>
-                    </a>
-                    <ul class="mb-4 space-y-3 flex-1 flex-col items-center list-disc">
-                        <li>撰写邮件/文案/合同/论文</li>
-                        <li>编写/解释/重构代码</li>
-                        <li>支持富文本格式，绘制图表</li>
-                        <li>支持所有语言的相互翻译</li>
-                    </ul>
-                    <button class="rounded px-4 py-2 text-base text-white bg-purple-500" onclick="handleToGPT()">
-                        免费使用
-                    </button>
-                </div>
-                <div class="mb-4 flex w-[500px] min-h-[310px] flex-col items-center rounded-lg bg-white p-8 shadow-md">
-                    <a href="/draw-studio/generate" target="_blank">
-                        <div class="mb-4 text-xl font-bold">AI绘画</div>
-                    </a>
-                    <ul class="mb-4 space-y-3 flex-1 flex-col items-center list-disc">
-                        <li>强大的AI绘画功能</li>
-                        <li>文字生成图片/以图生图</li>
-                        <li>图片局部重绘/高清修复</li>
-                        <li>支持多种图像渲染风格</li>
-                    </ul>
-                    <button class="rounded px-4 py-2 text-base text-white bg-purple-500" onclick="handleToGenerate()">
-                        免费使用
-                    </button>
-                </div>
-            </div>
-            <div class="my-6 flex flex-wrap justify-around text-3xl font-bold">
-                <div class="flex min-w-[400px] shrink-0 flex-nowrap items-baseline justify-center space-x-2">
-                    <span class="text-2xl font-normal text-gray-500">
-                        已服务用户
+        <main class="cards">
+            <article class="card">
+                <div class="card-head">
+                    <span class="card-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4.2"></circle>
+                            <path d="M12 3v2.4M12 18.6V21M3 12h2.4M18.6 12H21"></path>
+                            <path d="M5.7 5.7l1.7 1.7M16.6 16.6l1.7 1.7M18.3 5.7l-1.7 1.7M7.4 16.6l-1.7 1.7" opacity=".55"></path>
+                        </svg>
                     </span>
-                    <span id="users">0</span>
+                    <a href="/chat" target="_blank" class="card-title">AI 大语言模型</a>
                 </div>
-                <div class="flex min-w-[400px] shrink-0 flex-nowrap items-baseline justify-center space-x-2">
-                    <span class="text-2xl font-normal text-gray-500">
-                        已处理文字
+                <ul class="features">
+                    <li>撰写邮件 / 文案 / 合同 / 论文</li>
+                    <li>编写 / 解释 / 重构程序代码</li>
+                    <li>支持渲染富文本 / 数学公式 / 绘制图表</li>
+                    <li>支持几乎所有语言的相互翻译</li>
+                </ul>
+                <button class="btn" onclick="handleToGPT()">免费使用 <span class="arw">→</span></button>
+            </article>
+
+            <article class="card">
+                <div class="card-head">
+                    <span class="card-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.6"></circle>
+                            <path d="M21 15.5l-4.5-4.5L6 21"></path>
+                        </svg>
                     </span>
-                    <span id="tokens">0</span>
+                    <a href="/draw-studio/generate" target="_blank" class="card-title">AI 绘画</a>
                 </div>
+                <ul class="features">
+                    <li>AI 绘画功能</li>
+                    <li>文字生成图片 / 以图生图</li>
+                    <li>图片局部重绘 / 高清修复</li>
+                </ul>
+                <button class="btn" onclick="handleToGenerate()">免费使用 <span class="arw">→</span></button>
+            </article>
+        </main>
+
+        <section class="stats">
+            <div class="stat">
+                <div class="stat-value" id="users">0</div>
+                <div class="stat-label">已服务用户</div>
             </div>
-        </div>
-        <div>
-            <img class="w-full" src="https://draw-1304100014.cos.ap-shanghai.myqcloud.com/banruoai%E4%B8%BB%E9%A1%B5.png" alt="" />
-        </div>
-        <div class="text-center py-2">
-            <a class="text-xs text-gray-400" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备2023011167号-9</a>
-        </div>
+            <div class="stat">
+                <div class="stat-value" id="tokens">0</div>
+                <div class="stat-label">已处理文字</div>
+            </div>
+        </section>
+
+        <div class="divider" aria-hidden="true"></div>
+
+        <section class="hero-img">
+            <img src="https://draw-1304100014.cos.ap-shanghai.myqcloud.com/Celestial%20Spirit%20in%20the%20Nebula.png" alt="Celestial Spirit in the Nebula">
+            <div class="img-caption"><span>The Self-Portrait of Banruo AI</span></div>
+        </section>
+
+        <footer class="footer">
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">苏ICP备2023011167号-9</a>
+        </footer>
     </div>
+
     <script>
     var sumData = {
         chats: 0,
