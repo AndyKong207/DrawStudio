@@ -2,6 +2,20 @@ import * as StableStudio from "@stability/stablestudio-plugin";
 
 import http from "../../stablestudio-ui/src/api";
 
+// 老的历史记录（如 Seedream / Z-Image）没有保存 small_dim，
+// 这里给一个兜底尺寸，避免访问 undefined.width 时抛错把整个作图列表的请求打断
+const DEFAULT_IMAGE_SIZE = 1024;
+
+function getImageDimensions(imageInfo: any) {
+  const dim = imageInfo?.small_dim || imageInfo?.big_dim;
+
+  return {
+    width: Number(dim?.width) || Number(imageInfo?.width) || DEFAULT_IMAGE_SIZE,
+    height:
+      Number(dim?.height) || Number(imageInfo?.height) || DEFAULT_IMAGE_SIZE,
+  };
+}
+
 export const createPlugin = StableStudio.createPlugin<{
   imagesGeneratedSoFar: number;
   settings: {
@@ -299,9 +313,10 @@ export const createPlugin = StableStudio.createPlugin<{
         pid,
         exclusiveStartImageID,
       } = responseData;
-      for (let i = 0; i < imgs.length; i++) {
+      for (let i = 0; i < (imgs?.length ?? 0); i++) {
         const imageInfo = imgs[i];
         const createdAt = new Date(ctime);
+        const { width, height } = getImageDimensions(imageInfo);
         const stableDiffusionImage = {
           id: `${pid}|${imageInfo.small}`,
           exclusiveStartImageID,
@@ -322,8 +337,8 @@ export const createPlugin = StableStudio.createPlugin<{
             steps,
             seed: imageInfo.seed,
             model: engine,
-            width: imageInfo["small_dim"].width,
-            height: imageInfo["small_dim"].height,
+            width,
+            height,
           },
         };
 
@@ -384,9 +399,10 @@ export const createPlugin = StableStudio.createPlugin<{
         pid,
         exclusiveStartImageID,
       } = responseData;
-      for (let i = 0; i < imgs.length; i++) {
+      for (let i = 0; i < (imgs?.length ?? 0); i++) {
         const imageInfo = imgs[i];
         const createdAt = new Date(ctime);
+        const { width, height } = getImageDimensions(imageInfo);
 
         const stableDiffusionImage = {
           id: `${pid}|${imageInfo.small}`,
@@ -408,8 +424,8 @@ export const createPlugin = StableStudio.createPlugin<{
             steps,
             seed: imageInfo.seed,
             model: engine,
-            width: imageInfo["small_dim"].width,
-            height: imageInfo["small_dim"].height,
+            width,
+            height,
           },
         };
 
@@ -420,8 +436,10 @@ export const createPlugin = StableStudio.createPlugin<{
       {
         id: `${Math.random() * 10000000}`,
         images: images,
+        // 当前记录没有图片时也要把分页游标带出去，避免历史记录在这里被截断
         exclusiveStartImageID:
-          images?.[images.length - 1]?.exclusiveStartImageID,
+          images?.[images.length - 1]?.exclusiveStartImageID ??
+          responseData?.exclusiveStartImageID,
       },
     ];
   },
